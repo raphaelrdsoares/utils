@@ -4,8 +4,19 @@
  * Licensed under MIT
  * ---------------------------------------------------
  * Regras:
+ *
  *     Código - em EN
- *     Comentários - em PT-BR
+ *     Comentários - em PT-BR;
+ * 
+ *     Colocar comentário em TODOS os métodos seguindo
+ *     o padrão abaixo
+ *     /**
+ *      * [Breve descrição do que o método faz]
+ *      * 
+ *      * @param {[Tipo do objeto ou * p/ qualquer tipo]} [nome do parâmetro]
+ *      * @param {[Tipo do objeto ou * p/ qualquer tipo]} [nome do parâmetro]
+ *      * @returns {[Tipo do objeto ou * p/ qualquer tipo]}
+ *      * /
  */
 
 /* ---------------------------------------------------
