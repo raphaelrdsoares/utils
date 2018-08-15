@@ -1,15 +1,25 @@
+/*!
+ * Utils JS v0.1.3 (https://github.com/raphaelrdsoares/utils)
+ * Copyright 2018 RaphaelRDSoares
+ * Licensed under MIT
+ * ---------------------------------------------------
+ * Regras:
+ *     Código - em EN
+ *     Comentários - em PT-BR
+ */
+
 /* ---------------------------------------------------
-    ARRAY
+    PROTOTYPE'S
 ----------------------------------------------------- */
 
-/*======================== Array Prototype =========================*/
+/*================= Array Prototype ==================*/
 Array.prototype.clone = function() {
   return JSON.parse(JSON.stringify(this));
 };
 
 
 /* ---------------------------------------------------
-    VALIDATIONS
+    VALIDAÇÕES
 ----------------------------------------------------- */
 /**
  * Verifica se o email é válido 
@@ -60,9 +70,57 @@ function isValidDate(dateString) {
     return day > 0 && day <= monthLength[month - 1];
 };
 
+export function convertToDateJS(dateString) {
+    if (! isValidDate(dateString))
+        return null;
+
+    // Converte as partes para inteiro
+    var parts = dateString.split("/");
+    var day = parseInt(parts[0], 10);
+    var month = parseInt(parts[1], 10);
+    var year = parseInt(parts[2], 10);
+    
+    // Se o ano estiver abreviado, converte para o ano completo
+    if (year < 50)
+        year = year + 2000;
+    else if (year < 100)
+        year = year + 1900;
+
+    return new Date(year, (month-1), day);
+}
 
 /* ---------------------------------------------------
-    UTILITIES 
+    CONVERSÕES
+----------------------------------------------------- */
+
+/**
+ * Converte uma String para Date Javascript
+ * 
+ * @param {String} dateString no formato "DD/MM/YYYY" ou "DD/MM/YY"
+ * @returns {Date} 
+ */
+export function convertToDateJS(dateString) {
+    // Verifica se a data é válida
+    if (! isValidDate(dateString))
+        return null;
+
+    // Converte as partes para inteiro
+    var parts = dateString.split("/");
+    var day = parseInt(parts[0], 10);
+    var month = parseInt(parts[1], 10);
+    var year = parseInt(parts[2], 10);
+    
+    // Se o ano estiver abreviado, converte para o ano completo
+    if (year < 50)
+        year = year + 2000;
+    else if (year < 100)
+        year = year + 1900;
+
+    return new Date(year, (month-1), day);
+}
+
+/* ---------------------------------------------------
+    UTILITÁRIOS
 ----------------------------------------------------- */
 
 /**
