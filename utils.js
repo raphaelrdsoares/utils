@@ -1,6 +1,6 @@
 /*!
- * Utils JS v0.1.3 (https://github.com/raphaelrdsoares/utils)
- * Copyright 2018 RaphaelRDSoares
+ * Utils JS v0.1.0 (https://github.com/raphaelrdsoares/utils)
+ * Copyright 2018 RaphaelRDSoares <raphael@rdsoares.com> 
  * Licensed under MIT
  * ---------------------------------------------------
  * Regras:
@@ -164,6 +164,18 @@ function isValidTime(timeString) {
 /* ---------------------------------------------------
     CONVERSÕES
 ----------------------------------------------------- */
+
+
+/**
+ * Converte uma cor em Hexadecimal para RGB
+ * 
+ * @param {String} hex no formato #000000
+ * @returns {String} no formato "255, 255, 255" 
+ */
+function hexToRgb(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? parseInt(result[1], 16) + ', ' + parseInt(result[2], 16) + ', ' + parseInt(result[3], 16) : null;
+};
 
 /**
  * Converte uma String para Date Javascript
