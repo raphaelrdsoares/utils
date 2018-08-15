@@ -135,6 +135,17 @@ export function convertToDateJS(dateString) {
 ----------------------------------------------------- */
 
 /**
+ * Retorna um inteiro gerado aleatoriamente entre o min (incluso) e max (incluso)
+ * 
+ * @param {Int} min 
+ * @param {Int} max 
+ * @returns {Int}
+ */
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/**
  * Gera uma chave randomicamente com o tamanho determinado no parâmetro.
  * @param {string} keyLength 
  */
