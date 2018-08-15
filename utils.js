@@ -43,8 +43,8 @@ Object.prototype.clone = function() {
  * @param {String} email 
  * @returns {boolean}
  */
-export function isValidEmail(email) {
-    var re = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-]){3,}+\.)+([a-zA-Z0-9]{2,4})+$/;
+function isValidEmail(email) {
+    var re = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-]{3,})+\.)+([a-zA-Z0-9]{2,4})+$/;
     return re.test(String(email).toLowerCase());
 }
 
@@ -86,7 +86,7 @@ function isValidDate(dateString) {
     return day > 0 && day <= monthLength[month - 1];
 };
 
-export function convertToDateJS(dateString) {
+function convertToDateJS(dateString) {
     if (! isValidDate(dateString))
         return null;
 
@@ -115,7 +115,7 @@ export function convertToDateJS(dateString) {
  * @param {String} dateString no formato "DD/MM/YYYY" ou "DD/MM/YY"
  * @returns {Date} 
  */
-export function convertToDateJS(dateString) {
+function convertToDateJS(dateString) {
     // Verifica se a data é válida
     if (! isValidDate(dateString))
         return null;
@@ -154,7 +154,7 @@ function randomInt(min, max) {
  * Gera uma chave randomicamente com o tamanho determinado no parâmetro.
  * @param {string} keyLength 
  */
-export function generateKey(keyLength = 10) {
+function generateKey(keyLength = 10) {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -168,7 +168,7 @@ export function generateKey(keyLength = 10) {
  * Formata a string informada para o formato 000.000.000-00
  * @param {string} strCpfWithoutMask 
  */
-export function formatCPF(strCpfWithoutMask) {
+function formatCPF(strCpfWithoutMask) {
     return strCpfWithoutMask.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
 }
 
@@ -176,7 +176,7 @@ export function formatCPF(strCpfWithoutMask) {
  * Formata a string informada para o formato 00.000.000/0000-00
  * @param {string} strCnpjWithourMask 
  */
-export function formatCNPJ(str) {
+function formatCNPJ(str) {
     return str.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "$1.$2.$3/$4-$5")
 }
 
@@ -184,7 +184,7 @@ export function formatCNPJ(str) {
  * Remove a formatação de um texto, retornando apenas valores numericos da string.
  * @param {string} strText 
  */
-export function removeFormat(strText) {
+function removeFormat(strText) {
     return strText.replace(/(\.|\/|-| |[(]|[)]|_)/g, "");
 }
 
@@ -193,7 +193,7 @@ export function removeFormat(strText) {
  * 
  * @param {String} object 
  */
-export function getBooleanValue(object) {
+function getBooleanValue(object) {
     if (object === "true" || object === "True" || object === "1" || object === 1)
         return true;
     return false;
@@ -204,7 +204,7 @@ export function getBooleanValue(object) {
  * @param {*} obj 
  * @param {*} prop 
  */
-export function fetchFromObject(obj, prop) {
+function fetchFromObject(obj, prop) {
 
     if (typeof obj === 'undefined') {
         return false;
@@ -223,7 +223,7 @@ export function fetchFromObject(obj, prop) {
  * @param {*} obj 
  * @param {*} hash 
  */
-export function deepClone(obj, hash = new WeakMap()) {
+function deepClone(obj, hash = new WeakMap()) {
     if (Object(obj) !== obj) { // tipos primitivos
         return obj;
     }
