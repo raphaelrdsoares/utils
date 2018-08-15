@@ -17,7 +17,7 @@ Array.prototype.clone = function() {
  * @param {String} email 
  * @returns {boolean}
  */
-export function validateEmail(email) {
+export function isValidEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
@@ -25,32 +25,38 @@ export function validateEmail(email) {
 /**
  * Verifica se a data informada é válida
  * 
- * @param {String} no formato "DD/MM/YYYY" 
+ * @param {String} dateString no formato "DD/MM/YYYY" ou "DD/MM/YY"
  * @returns {boolean}
  */
-function isValidDate(dateString)
-{
-    // First check for the pattern
-    if(!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString))
+function isValidDate(dateString) {
+    // Checa o padrão
+    if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString) && !/^\d{1,2}\/\d{1,2}\/\d{2}$/.test(dateString))
         return false;
 
-    // Parse the date parts to integers
+    // Converte as partes para inteiro
     var parts = dateString.split("/");
     var day = parseInt(parts[0], 10);
     var month = parseInt(parts[1], 10);
     var year = parseInt(parts[2], 10);
 
-    // Check the ranges of month and year
-    if(year < 1000 || year > 3000 || month == 0 || month > 12)
+    // Se o ano estiver abreviado, converte para o ano completo
+    if(year < 50)
+        year = year + 2000;
+    else if (year < 100)
+        year = year + 1900;
+    
+
+    // Checa a validade do ano e do mês
+    if (year < 1000 || year > 3000 || month == 0 || month > 12)
         return false;
 
-    var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+    var monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-    // Adjust for leap years
-    if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+    // Ajuste do ano bissexto
+    if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
         monthLength[1] = 29;
 
-    // Check the range of the day
+    // Checa a validade do dia
     return day > 0 && day <= monthLength[month - 1];
 };
 
