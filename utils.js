@@ -17,6 +17,9 @@
  *      * @param {[Tipo do objeto ou * p/ qualquer tipo]} [nome do parâmetro]
  *      * @returns {[Tipo do objeto ou * p/ qualquer tipo]}
  *      * /
+ * 
+ *      Nome de método com retorno booleano deve iniciar com 'is...';
+ *      Ex: "isValidEmail(..)"
  */
 
 /* ---------------------------------------------------
@@ -38,7 +41,7 @@ Object.prototype.clone = function() {
     VALIDAÇÕES
 ----------------------------------------------------- */
 /**
- * Verifica se o email é válido 
+ * Verifica se o email informado é válido 
  * 
  * @param {String} email 
  * @returns {boolean}
@@ -46,6 +49,45 @@ Object.prototype.clone = function() {
 function isValidEmail(email) {
     var re = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-]{3,})+\.)+([a-zA-Z0-9]{2,4})+$/;
     return re.test(String(email).toLowerCase());
+}
+
+/**
+ * Verifica se o CPF informado é válido
+ * 
+ * @param {String} cpf com ou sem formatação
+ * @returns {boolean}
+ */
+function isValidCPF(cpf) {
+    cpf = removeFormat(cpf);
+    var numbers, digits, sum, i, result, equalDigits;
+    equalDigits = 1;
+    if (cpf.length < 11)
+        return false;
+    for (i = 0; i < cpf.length - 1; i++)
+        if (cpf.charAt(i) != cpf.charAt(i + 1)) {
+            equalDigits = 0;
+            break;
+        }
+    if (!equalDigits) {
+        numbers = cpf.substring(0, 9);
+        digits = cpf.substring(9);
+        sum = 0;
+        for (i = 10; i > 1; i--)
+            sum += numbers.charAt(10 - i) * i;
+        result = sum % 11 < 2 ? 0 : 11 - sum % 11;
+        if (result != digits.charAt(0))
+            return false;
+        numbers = cpf.substring(0, 10);
+        sum = 0;
+        for (i = 11; i > 1; i--)
+            sum += numbers.charAt(11 - i) * i;
+        result = sum % 11 < 2 ? 0 : 11 - sum % 11;
+        if (result != digits.charAt(1))
+            return false;
+        return true;
+    }
+    else
+        return false;
 }
 
 /**
@@ -86,24 +128,7 @@ function isValidDate(dateString) {
     return day > 0 && day <= monthLength[month - 1];
 };
 
-function convertToDateJS(dateString) {
-    if (! isValidDate(dateString))
-        return null;
 
-    // Converte as partes para inteiro
-    var parts = dateString.split("/");
-    var day = parseInt(parts[0], 10);
-    var month = parseInt(parts[1], 10);
-    var year = parseInt(parts[2], 10);
-    
-    // Se o ano estiver abreviado, converte para o ano completo
-    if (year < 50)
-        year = year + 2000;
-    else if (year < 100)
-        year = year + 1900;
-
-    return new Date(year, (month-1), day);
-}
 
 /* ---------------------------------------------------
     CONVERSÕES
@@ -115,7 +140,7 @@ function convertToDateJS(dateString) {
  * @param {String} dateString no formato "DD/MM/YYYY" ou "DD/MM/YY"
  * @returns {Date} 
  */
-function convertToDateJS(dateString) {
+function convertToDate(dateString) {
     // Verifica se a data é válida
     if (! isValidDate(dateString))
         return null;
@@ -142,16 +167,17 @@ function convertToDateJS(dateString) {
 /**
  * Retorna um inteiro gerado aleatoriamente entre o min (incluso) e max (incluso)
  * 
- * @param {Int} min 
- * @param {Int} max 
- * @returns {Int}
+ * @param {int} min 
+ * @param {int} max 
+ * @returns {int}
  */
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 /**
- * Gera uma chave randomicamente com o tamanho determinado no parâmetro.
+ * Gera uma chave aleatória com o tamanho determinado no parâmetro.
+ *
  * @param {string} keyLength 
  */
 function generateKey(keyLength = 10) {
