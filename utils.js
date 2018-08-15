@@ -128,6 +128,37 @@ function isValidDate(dateString) {
     return day > 0 && day <= monthLength[month - 1];
 };
 
+/**
+ * Verifica se a hora informada é válida
+ * 
+ * @param {String} timeString no formato "hh:mm" ou "hh:mm:ss"
+ * @returns {boolean}
+ */
+function isValidTime(timeString) {
+    // Checa o padrão do formato
+    if (!/^\d{1,2}:\d{1,2}:\d{1,2}$/.test(timeString) && !/^\d{1,2}:\d{1,2}$/.test(timeString))
+        return false;
+
+    // Converte as partes para inteiro
+    var parts = timeString.split(":");
+    var hour = parseInt(parts[0], 10);
+    var minutes = parseInt(parts[1], 10);
+    var seconds = parts[2] ? parseInt(parts[2], 10) : null
+
+    // Checa a validade das horas 
+    if (hour < 0 || hour > 23)
+        return false;
+
+    // Checa a validade dos minutos
+    if (minutes < 0 || minutes > 59)
+        return false;
+
+    // Checa a validade dos segundos (se houver)
+    if (seconds && (seconds < 0 || seconds > 59))
+        return false;
+    
+    return true;
+};
 
 
 /* ---------------------------------------------------
