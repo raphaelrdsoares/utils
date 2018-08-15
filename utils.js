@@ -108,7 +108,7 @@ function isValidDate(dateString) {
     var year = parseInt(parts[2], 10);
 
     // Se o ano estiver abreviado, converte para o ano completo
-    if(year < 50)
+    if(year < 70)
         year = year + 2000;
     else if (year < 100)
         year = year + 1900;
