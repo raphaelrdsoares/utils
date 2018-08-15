@@ -28,6 +28,11 @@ Array.prototype.clone = function() {
   return JSON.parse(JSON.stringify(this));
 };
 
+/*================= Object Prototype =================*/
+Object.prototype.clone = function() {
+  return JSON.parse(JSON.stringify(this));
+};
+
 
 /* ---------------------------------------------------
     VALIDAÇÕES
@@ -180,7 +185,7 @@ export function formatCNPJ(str) {
  * @param {string} strText 
  */
 export function removeFormat(strText) {
-    return strText.replace(/(\.|\/|-|_)/g, "");
+    return strText.replace(/(\.|\/|-| |[(]|[)]|_)/g, "");
 }
 
 /**
