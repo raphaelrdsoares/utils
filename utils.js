@@ -1,6 +1,8 @@
 /*!
  * Utils JS v0.1.0 (https://github.com/raphaelrdsoares/utils)
- * Copyright 2018 RaphaelRDSoares <raphael@rdsoares.com> 
+ * @author RaphaelRDSoares <raphael@rdsoares.com> 
+ * http://raphael.rdsoares.com/
+ * Copyright 2018 
  * Licensed under MIT
  * ---------------------------------------------------
  * Regras:
