@@ -206,6 +206,8 @@ Date.prototype.clone = function () {
  * @returns {Date} apenas campos data preenchidos
  */
 Date.toDate = function () {
+    const currDate = new Date();
+    return new Date(currDate.getFullYear(), currDate.getMonth(), currDate.getDate())
 }
 
 /**
@@ -215,6 +217,9 @@ Date.toDate = function () {
  * @returns {Date} apenas campos data preenchidos
  */
 Date.toDate = function (dateToConvert) {
+    if (dateToConvert instanceof Date)
+        return new Date(dateToConvert.getFullYear(), dateToConvert.getMonth(), dateToConvert.getDate())
+    return null;
 }
 
 /**
@@ -223,6 +228,7 @@ Date.toDate = function (dateToConvert) {
  * @returns {Date}  apenas campos data preenchidos
  */
 Date.prototype.toDate = function () {
+    return new Date(this.getFullYear(), this.getMonth(), this.getDate())
 };
 
 /**
