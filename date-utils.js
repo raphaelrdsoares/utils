@@ -199,6 +199,32 @@ Date.prototype.clone = function () {
 ----------------------------------------------------- */
 
 
+
+/**
+ * @todo Retorna um Date apenas com o dia, mês e ano preenchidos com a data corrente, o resto estará zerado
+ * 
+ * @returns {Date} apenas campos data preenchidos
+ */
+Date.toDate = function () {
+}
+
+/**
+ * @todo Retorna um Date apenas com o dia, mês e ano preenchidos da data informada, o resto estará zerado
+ * 
+ * @param {Date} dateToConvert data que será convertida
+ * @returns {Date} apenas campos data preenchidos
+ */
+Date.toDate = function (dateToConvert) {
+}
+
+/**
+ * @todo Retorna um Date apenas com o dia, mês e ano preenchidos do objeto, o resto estará zerado
+ * 
+ * @returns {Date}  apenas campos data preenchidos
+ */
+Date.prototype.toDate = function () {
+};
+
 /**
  * @todo Retorna um Date apenas com o dia, mês e ano preenchidos com a data corrente, o resto estará zerado
  * 
@@ -246,4 +272,6 @@ Date.tomorrowDate = function () {
  */
 Date.prototype.tomorrowDate = function () {
 };
+
+
 
