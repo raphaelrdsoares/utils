@@ -194,4 +194,56 @@ Date.prototype.clone = function () {
 };
 
 
+/* ---------------------------------------------------
+    UTILITÁRIOS
+----------------------------------------------------- */
+
+
+/**
+ * @todo Retorna um Date apenas com o dia, mês e ano preenchidos com a data corrente, o resto estará zerado
+ * 
+ * @returns {Date} apenas campos data preenchidos
+ */
+Date.today = function () {
+}
+
+/**
+ * @todo Retorna um Date apenas com o dia, mês e ano preenchidos com a data corrente, o resto estará zerado
+ * 
+ * @returns {Date}  apenas campos data preenchidos
+ */
+Date.prototype.today = function () {
+};
+
+/**
+ * @todo Retorna um Date com exatas 24 horas a mais que a data corrente
+ * 
+ * @returns {Date} data/hora preenchidos
+ */
+Date.tomorrow = function () {
+}
+
+/**
+ * @todo Retorna um Date com exatas 24 horas a mais que data do objeto
+ * 
+ * @returns {Date} data/hora preenchidos
+ */
+Date.prototype.tomorrow = function () {
+};
+
+/**
+ * @todo Retorna apenas o dia, mês, ano do dia posterior ao dia corrente
+ * 
+ * @returns {Date} apenas campos data preenchidos
+ */
+Date.tomorrowDate = function () {
+}
+
+/**
+ * @todo Retorna apenas o dia, mês, ano do dia posterior a data do objeto
+ * 
+ * @returns {Date} apenas campos data preenchidos
+ */
+Date.prototype.tomorrowDate = function () {
+};
 
