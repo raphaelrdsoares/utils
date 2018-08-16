@@ -201,26 +201,21 @@ Date.prototype.clone = function () {
 
 
 /**
- * @todo Retorna um Date apenas com o dia, mês e ano preenchidos com a data corrente, o resto estará zerado
+ * @todo Retorna um Date apenas com o dia, mês e ano preenchidos, o resto estará zerado
  * 
- * @returns {Date} apenas campos data preenchidos
- */
-Date.toDate = function () {
-    const currDate = new Date();
-    return new Date(currDate.getFullYear(), currDate.getMonth(), currDate.getDate())
-}
-
-/**
- * @todo Retorna um Date apenas com o dia, mês e ano preenchidos da data informada, o resto estará zerado
- * 
- * @param {Date} dateToConvert data que será convertida
+ * @param {Date} [dateToConvert=new Date()] data que será convertida. Caso não seja informado, será considerada a data atual
  * @returns {Date} apenas campos data preenchidos
  */
 Date.toDate = function (dateToConvert) {
+    if (!dateToConvert)
+        dateToConvert = new Date();
+    
     if (dateToConvert instanceof Date)
-        return new Date(dateToConvert.getFullYear(), dateToConvert.getMonth(), dateToConvert.getDate())
+        return new Date(dateToConvert.getFullYear(), dateToConvert.getMonth(), dateToConvert.getDate());
+        
     return null;
 }
+
 
 /**
  * @todo Retorna um Date apenas com o dia, mês e ano preenchidos do objeto, o resto estará zerado
