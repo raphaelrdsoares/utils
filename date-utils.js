@@ -141,7 +141,7 @@ Date.prototype.toStringDate = function (useFullYear = true, separator = "/", mon
     const year = useFullYear ? this.getFullYear() : String(this.getFullYear()).substr(2,4);
     
     if (monthFirst)
-    return "{1}{3}{0}{3}{2}".format(day, month, year, separator);
+        return "{1}{3}{0}{3}{2}".format(day, month, year, separator);
     return "{0}{3}{1}{3}{2}".format(day, month, year, separator);
 };
 
@@ -158,7 +158,7 @@ Date.prototype.toStringTime = function (withSeconds = true, separator = ":") {
     const seconds = fillLeftZero(this.getSeconds());
     
     if(withSeconds)
-    return "{0}{3}{1}{3}{2}".format(hour, minutes, seconds, separator)
+        return "{0}{3}{1}{3}{2}".format(hour, minutes, seconds, separator)
     return "{0}{2}{1}".format(hour, minutes, separator)
 }
 
