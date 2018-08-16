@@ -1,9 +1,10 @@
-/*!
- * Utils JS v0.1.0 (https://github.com/raphaelrdsoares/utils)
- * @author RaphaelRDSoares <raphael@rdsoares.com> 
- * http://raphael.rdsoares.com/
- * Copyright 2018 
- * Licensed under MIT
+/**
+ * Utils JS - Uma biblioteca de funções JS utilitárias
+ *
+ * @author Copyright 2018 RaphaelRDSoares <raphael@rdsoares.com>
+ * @license https://en.wikipedia.org/wiki/MIT_License
+ * @see https://github.com/raphaelrdsoares/utils
+ * @version 0.1.0
  * ---------------------------------------------------
  * Regras:
  *
@@ -15,9 +16,9 @@
  *     /**
  *      * [Breve descrição do que o método faz]
  *      * 
- *      * @param {[Tipo do objeto ou * p/ qualquer tipo]} [nome do parâmetro]
- *      * @param {[Tipo do objeto ou * p/ qualquer tipo]} [nome do parâmetro]
- *      * @returns {[Tipo do objeto ou * p/ qualquer tipo]}
+ *      * @param {[Tipo do objeto ou * p/ qualquer tipo]} nome_do_parâmetro - breve descrição [opcional]
+ *      * @param {[Tipo do objeto ou * p/ qualquer tipo]} nome_do_parâmetro - breve descrição [opcional]
+ *      * @returns {[Tipo do objeto ou * p/ qualquer tipo]} - breve descrição [opcional]
  *      * /
  * 
  *      Nome de método com retorno booleano deve iniciar com 'is...';
@@ -35,8 +36,19 @@ Array.prototype.clone = function() {
 
 /*================= Object Prototype =================*/
 Object.prototype.clone = function() {
-  return JSON.parse(JSON.stringify(this));
+    return JSON.parse(JSON.stringify(this));
 };
+
+/*================= String Prototype =================*/
+// First, checks if it isn't implemented yet.
+if (!String.prototype.format) {
+    String.prototype.format = function () {
+        var args = arguments;
+        return this.replace(/{(\d+)}/g, function (match, number) {
+            return typeof args[number] != 'undefined' ? args[number] : match ;
+        });
+    };
+}
 
 
 /* ---------------------------------------------------
@@ -92,75 +104,6 @@ function isValidCPF(cpf) {
         return false;
 }
 
-/**
- * Verifica se a data informada é válida
- * 
- * @param {String} dateString no formato "DD/MM/YYYY" ou "DD/MM/YY"
- * @returns {boolean}
- */
-function isValidDate(dateString) {
-    // Checa o padrão
-    if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString) && !/^\d{1,2}\/\d{1,2}\/\d{2}$/.test(dateString))
-        return false;
-
-    // Converte as partes para inteiro
-    var parts = dateString.split("/");
-    var day = parseInt(parts[0], 10);
-    var month = parseInt(parts[1], 10);
-    var year = parseInt(parts[2], 10);
-
-    // Se o ano estiver abreviado, converte para o ano completo
-    if(year < 70)
-        year = year + 2000;
-    else if (year < 100)
-        year = year + 1900;
-    
-
-    // Checa a validade do ano e do mês
-    if (year < 1000 || year > 3000 || month == 0 || month > 12)
-        return false;
-
-    var monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-    // Ajuste do ano bissexto
-    if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
-        monthLength[1] = 29;
-
-    // Checa a validade do dia
-    return day > 0 && day <= monthLength[month - 1];
-};
-
-/**
- * Verifica se a hora informada é válida
- * 
- * @param {String} timeString no formato "hh:mm" ou "hh:mm:ss"
- * @returns {boolean}
- */
-function isValidTime(timeString) {
-    // Checa o padrão do formato
-    if (!/^\d{1,2}:\d{1,2}:\d{1,2}$/.test(timeString) && !/^\d{1,2}:\d{1,2}$/.test(timeString))
-        return false;
-
-    // Converte as partes para inteiro
-    var parts = timeString.split(":");
-    var hour = parseInt(parts[0], 10);
-    var minutes = parseInt(parts[1], 10);
-    var seconds = parts[2] ? parseInt(parts[2], 10) : null
-
-    // Checa a validade das horas 
-    if (hour < 0 || hour > 23)
-        return false;
-
-    // Checa a validade dos minutos
-    if (minutes < 0 || minutes > 59)
-        return false;
-
-    // Checa a validade dos segundos (se houver)
-    if (seconds && (seconds < 0 || seconds > 59))
-        return false;
-    
-    return true;
-};
 
 
 /* ---------------------------------------------------
@@ -210,6 +153,23 @@ function convertToDate(dateString) {
 ----------------------------------------------------- */
 
 /**
+ * Retorna uma String com o número informado e a quantidade desejada de zeros a esquerda.
+ * Caso o size seja menor ou igual ao number, retorna o próprio number inalterado. 
+ * 
+ * Ex: fillLeftZero(27, 5) => "00027"; fillLeftZero(1, 3) => "001"; 
+ * fillLeftZero(7244, 3) => "7244"; fillLeftZero(36, 2) => "36"
+ * 
+ * @param {Number} number número qualquer, Ex: 8
+ * @param {Number} size tamanho final da String, Ex: 3
+ * @returns {String}  resultado final, Ex: "008"
+ */
+function fillWithZero(number, size) {
+    var s = number + "";
+    while (s.length < size) s = "0" + s;
+    return s;
+}
+
+/**
  * Retorna um inteiro gerado aleatoriamente entre o min (incluso) e max (incluso)
  * 
  * @param {int} min 
@@ -223,7 +183,8 @@ function randomInt(min, max) {
 /**
  * Gera uma chave aleatória com o tamanho determinado no parâmetro.
  *
- * @param {string} keyLength 
+ * @param {Number} keyLength tamanho da chave. Default: 10
+ * @returns {String} chave gerada
  */
 function generateKey(keyLength = 10) {
     var text = "";
@@ -237,7 +198,9 @@ function generateKey(keyLength = 10) {
 
 /**
  * Formata a string informada para o formato 000.000.000-00
- * @param {string} strCpfWithoutMask 
+ * 
+ * @param {String} strCpfWithoutMask 
+ * @returns {String}
  */
 function formatCPF(strCpfWithoutMask) {
     return strCpfWithoutMask.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4");
@@ -245,35 +208,41 @@ function formatCPF(strCpfWithoutMask) {
 
 /**
  * Formata a string informada para o formato 00.000.000/0000-00
+ * 
  * @param {string} strCnpjWithourMask 
+ * @returns {string}
  */
 function formatCNPJ(str) {
     return str.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "$1.$2.$3/$4-$5")
 }
 
 /**
- * Remove a formatação de um texto, retornando apenas valores numericos da string.
- * @param {string} strText 
+ * Remove a formatação de um texto. Caracteres retirados => .,/-_)(
+ * 
+ * @param {String} strText texto a ser limpado 
+ * @returns {String}
  */
 function removeFormat(strText) {
     return strText.replace(/(\.|\/|-| |[(]|[)]|_)/g, "");
 }
 
 /**
- * Retorna um booleano de acordo com o valor passado no parâmetro
+ * Retorna um booleano de acordo com o valor informado
  * 
- * @param {String} object 
+ * @param {String|Number} value 
+ * @returns {boolean} true ou false
  */
-function getBooleanValue(object) {
-    if (object === "true" || object === "True" || object === "1" || object === 1)
+function getBooleanValue(value) {
+    if (value === "true" || value === "True" || value === "1" || value === 1 || value === true)
         return true;
     return false;
 }
 
 /**
  * Busca uma propriedade qualquer de um objeto qualquer (independente se estiver dentro de outras)
- * @param {*} obj 
- * @param {*} prop 
+ * 
+ * @param {Object} obj Objeto onde será realizada a busca
+ * @param {String} prop nome da propriedade
  */
 function fetchFromObject(obj, prop) {
 
@@ -291,6 +260,7 @@ function fetchFromObject(obj, prop) {
 
 /**
  * Clona um objeto e suas dependências considereando referências cíclicas quando houver
+ * 
  * @param {*} obj 
  * @param {*} hash 
  */

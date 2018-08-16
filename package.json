@@ -1,0 +1,27 @@
+{
+  "name": "utils",
+  "version": "1.0.0",
+  "description": "Um projeto com várias funções utilitárias para Javascript e CSS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raphaelrdsoares/utils.git"
+  },
+  "keywords": [
+    "utils",
+    "javascript",
+    "css",
+    "date",
+    "datetime",
+    "library"
+  ],
+  "author": "Raphael R. D. Soares",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raphaelrdsoares/utils/issues"
+  },
+  "homepage": "https://github.com/raphaelrdsoares/utils#readme"
+}
