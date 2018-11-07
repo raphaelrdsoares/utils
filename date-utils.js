@@ -277,7 +277,7 @@ Date.prototype.tomorrowDate = function () {
 /**
  * @todo Retorna o primeiro dia do mês da data do objeto
  * 
- * @returns {Date} apenas campos data preenchidos
+ * @returns {Date} data/hora preenchidos (ex: 01/MM/YYYY hh:mm:ss)
  */
 Date.prototype.firstDayMonth = function () {
 };
@@ -286,7 +286,7 @@ Date.prototype.firstDayMonth = function () {
 /**
  * @todo Retorna o último dia do mês da data do objeto
  * 
- * @returns {Date} apenas campos data preenchidos
+ * @returns {Date} data/hora preenchidos (ex: 31/MM/YYYY hh:mm:ss)
  */
 Date.prototype.LastDayMonth = function () {
 };
