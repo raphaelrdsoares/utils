@@ -274,5 +274,23 @@ Date.tomorrowDate = function () {
 Date.prototype.tomorrowDate = function () {
 };
 
+/**
+ * @todo Retorna o primeiro dia do mês da data do objeto
+ * 
+ * @returns {Date} apenas campos data preenchidos
+ */
+Date.prototype.firstDayMonth = function () {
+};
+
+
+/**
+ * @todo Retorna o último dia do mês da data do objeto
+ * 
+ * @returns {Date} apenas campos data preenchidos
+ */
+Date.prototype.LastDayMonth = function () {
+};
+
+
 
 
