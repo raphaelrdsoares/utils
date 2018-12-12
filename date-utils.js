@@ -326,28 +326,54 @@ Date.tomorrowDate = function() {};
 Date.prototype.tomorrowDate = function() {};
 
 /**
- * @todo Retorna o primeiro dia do mês da data do objeto
+ * Retorna o primeiro dia do mês da data do objeto
  *
- * @returns {Date} data/hora preenchidos (ex: 01/MM/YYYY hh:mm:ss)
+ * @returns {Date} data preenchida e horario zerada (ex: 01/MM/YYYY 00:00:00)
  */
-Date.prototype.firstDayMonth = function() {};
+Date.prototype.firstDayOfMonth = function() {
+	return new Date(this.getFullYear(), this.getMonth(), 1);
+};
 
 /**
- * @todo Retorna o último dia do mês da data do objeto
+ * Retorna o primeiro dia de um determinado mes/ano
  *
- * @returns {Date} data/hora preenchidos (ex: 31/MM/YYYY hh:mm:ss)
+ * @param {number} year ex: 2018
+ * @param {number} month entre 1 e 12
+ * @returns {Date} data preenchida e horario zerada (ex: 01/MM/YYYY 00:00:00)
  */
-Date.prototype.lastDayMonth = function() {};
+Date.firstDayOfMonth = function(year, month) {
+	return new Date(year, month - 1, 1);
+};
+
+/**
+ * Retorna o último dia do mês da data do objeto
+ *
+ * @returns {Date} data preenchida e horario zerado (ex: 31/MM/YYYY 00:00:00)
+ */
+Date.prototype.lastDayOfMonth = function() {
+	return new Date(this.getFullYear(), this.getMonth() + 1, 0);
+};
+
+/**
+ * Retorna o último dia do mês da data do objeto
+ *
+ * @param {number} year ex: 2018
+ * @param {number} month entre 1 e 12
+ * @returns {Date} data preenchida e horario zerado (ex: 31/MM/YYYY 00:00:00)
+ */
+Date.lastDayOfMonth = function(year, month) {
+	return new Date(year, month, 0);
+};
 
 /**
  * Retorna a quantidade de dias de um determinado mês/ano
  *
- * @param {number} year
+ * @param {number} year ex: 2018
  * @param {number} month entre 1 e 12
  * @returns {number} quantidade de dias no mês
  */
-Date.daysInMonth = function (year, month) {
-    return new Date(year, month, 0).getDate();
+Date.daysInMonth = function(year, month) {
+	return new Date(year, month, 0).getDate();
 };
 
 /**
@@ -355,7 +381,7 @@ Date.daysInMonth = function (year, month) {
  *
  * @returns {number} quantidade de dias no mês
  */
-Date.prototype.daysInMonth = function () {
-    return new Date(this.getFullYear(), this.getMonth() + 1, 0).getDate();
+Date.prototype.daysInMonth = function() {
+	return new Date(this.getFullYear(), this.getMonth() + 1, 0).getDate();
 };
 //#endregion
