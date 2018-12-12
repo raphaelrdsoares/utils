@@ -340,10 +340,22 @@ Date.prototype.firstDayMonth = function() {};
 Date.prototype.lastDayMonth = function() {};
 
 /**
- * Retorna o número de dias no mês de um determinado mês/ano.
+ * Retorna a quantidade de dias de um determinado mês/ano
  *
- * @param {int} year
- * @param {int} month - mês (variando entre 1 e 12)
+ * @param {number} year
+ * @param {number} month entre 1 e 12
+ * @returns {number} quantidade de dias no mês
  */
-Date.prototype.daysInMonth = function(year, month) {};
+Date.daysInMonth = function (year, month) {
+    return new Date(year, month, 0).getDate();
+};
+
+/**
+ * Retorna a quantidade de dias do mês/ano da data do objeto
+ *
+ * @returns {number} quantidade de dias no mês
+ */
+Date.prototype.daysInMonth = function () {
+    return new Date(this.getFullYear(), this.getMonth() + 1, 0).getDate();
+};
 //#endregion
