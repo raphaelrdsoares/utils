@@ -148,6 +148,24 @@ function convertToDate(dateString) {
     return new Date(year, (month-1), day);
 }
 
+/**
+ * Remove os acentos de uma string
+ * 
+ * @param {String} string 
+ * @returns {String} exatamente a mesma, porém sem acentos 
+ */
+function removeAccents(string) {
+    const accents = "ÀÁÂÃÄÅĄàáâãäåąßÒÓÔÕÕÖØÓòóôõöøóÈÉÊËĘèéêëęðÇĆçćÐÌÍÎÏìíîïÙÚÛÜùúûüÑŃñńŠŚšśŸÿýŽŻŹžżź";
+    const accentsOut = "AAAAAAAAaaaaaaaasOOOOOOOOoooooooDdDZdzEEEEEeeeeeeCcCcCcDIIIIIiiiiiUUUUUuuuuuLLLlllNNNnnnRrSSSsssTtYYyyZZZzzzdGGgg";
+    return string
+    .split("")
+    .map((letter, index) => {
+        const accentIndex = accents.indexOf(letter);
+        return accentIndex !== -1 ? accentsOut[accentIndex] : letter;
+    })
+    .join("");
+}
+
 /* ---------------------------------------------------
     UTILITÁRIOS
 ----------------------------------------------------- */
