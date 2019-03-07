@@ -55,6 +55,19 @@ if (!String.prototype.format) {
     VALIDAÇÕES
 ----------------------------------------------------- */
 /**
+ * Retorna true caso o valor informado seja null, undefined ou esteja vazio.
+ *
+ * Obs: caso seja informado o valor 0, retornará false, pois 0 é um valor.
+ * Obs²: caso seja informado um objeto, mesmo que não possua nenhuma propriedade
+ * 	(ex: {}), retornará false, pois um objeto é um valor
+ * @param {*} value Objeto com qualquer valor
+ * @returns boolean
+ */
+function isNullOrEmptyOrUndefined(value) {
+    return value === null || value === undefined || value.length === 0;
+}
+
+/**
  * Verifica se o email informado é válido 
  * 
  * @param {String} email 
