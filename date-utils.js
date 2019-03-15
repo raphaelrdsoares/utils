@@ -224,7 +224,7 @@ Date.prototype.addDays = function(value) {};
  * @returns {Date} campos data/hora preenchidos.
  */
 Date.prototype.addHours = function(value) {
-	return this.setTime(this.getTime() + (h*60*60*1000));
+	return this.setTime(this.getTime() + (value*60*60*1000));
 };
 
 /**
