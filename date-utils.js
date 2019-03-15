@@ -223,7 +223,9 @@ Date.prototype.addDays = function(value) {};
  * @param {int} value - número de horas; pode ser positivo ou negativo.
  * @returns {Date} campos data/hora preenchidos.
  */
-Date.prototype.addHours = function(value) {};
+Date.prototype.addHours = function(value) {
+	return this.setTime(this.getTime() + (h*60*60*1000));
+};
 
 /**
  * Retorna um Date adicionando o valor informado ao número de minutos da data do objeto.
