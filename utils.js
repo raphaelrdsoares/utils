@@ -201,6 +201,18 @@ function fillWithZero(number, size) {
 }
 
 /**
+ * Gera um id único com 9 caracteres alfanuméricos(letras sempre em minúsculo)
+ * 
+ * @returns {string} novo id
+ */
+function newId() {
+	// Math.random should be unique because of its seeding algorithm.
+	// Convert it to base 36 (numbers + letters), and grab the first 9 characters
+	// after the decimal.
+	return Math.random().toString(36).substr(2, 9);
+}
+
+/**
  * Retorna um inteiro gerado aleatoriamente entre o min (incluso) e max (incluso)
  * 
  * @param {int} min 
