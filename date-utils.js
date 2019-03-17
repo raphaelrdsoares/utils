@@ -123,6 +123,18 @@ Date.isValidDatetime = function(datetimeString) {
 //#region
 
 /**
+ * Retorna um novo objeto Date a partir de uma string informada.
+ *
+ * @param {String} date no formato DD/MM/YYYY (o separador '/' pode ser trocado por qualquer outro, Ex: "DD.MM#YYYY")
+ * @returns {Date}
+ */
+Date.prototype.fromString = function(date) {
+	var parts = date.match(/(\d+)/g);
+	return new Date(parts[2], parts[1] - 1, parts[0]);
+};
+
+
+/**
  * Retorna uma String no padrão DD/MM/YYYY
  *
  * @param {boolean} useFullYear Caso true, o ano é retornado com 4 dígitos. Caso false, o ano vem com 2 dígitos. Default: true
