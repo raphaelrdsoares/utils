@@ -143,8 +143,6 @@ Date.fromString = function(date, format) {
 	return new Date(parts[fmt["YYYY"]], parts[fmt["MM"]] - 1, parts[fmt["DD"]]);
 };
 
-
-
 /**
  * Retorna uma String no padrão DD/MM/YYYY
  *
@@ -198,6 +196,23 @@ Date.prototype.toStringDatetime = function(
 	const date = this.toStringDate(useFullYear, dateSeparator, monthFirst);
 	const time = this.toStringTime(withSeconds, timeSeparator);
 	return "{0} {1}".format(date, time);
+};
+
+/**
+ * Retona uma string com a data no formato SQL {YYYY-MM-DD hh:mm:ss}
+ * Obs: mês de 1 a 12
+ *
+ * @returns {String} data no formato SQL
+ */
+Date.prototype.toSQLDatetime = function() {
+	return "{0}-{1}-{2} {3}:{4}:{5}".format(
+		this.getFullYear(),
+		fillWithZero(this.getMonth() + 1, 2),
+		fillWithZero(this.getDate(), 2),
+		fillWithZero(this.getHours(), 2),
+		fillWithZero(this.getMinutes(), 2),
+		fillWithZero(this.getSeconds(), 2)
+	);
 };
 
 //#endregion
