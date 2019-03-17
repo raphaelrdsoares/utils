@@ -68,6 +68,19 @@ function isNullOrEmptyOrUndefined(value) {
 }
 
 /**
+ * Verifica se a string informada contém apenas números.
+ *
+ * @param {String} value string a ser verificada
+ * @param {Boolean} isRemoveFormat indicador para remover espaços e carateres especiais durante a verificação
+ */
+function hasOnlyNumbers(value, isRemoveFormat = true) {
+	if (isRemoveFormat) {
+		value = removeFormat(value);
+	}
+	return /^\d+$/.test(value);
+}
+
+/**
  * Verifica se o email informado é válido 
  * 
  * @param {String} email 
