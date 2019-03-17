@@ -281,6 +281,24 @@ Date.prototype.addMiliseconds = function(value) {};
 -------------------------------------------------------------------------- */
 //#region
 
+
+/**
+ * @description
+ * Retorna da idade da data em anos
+ *
+ * @returns {int} idade em anos
+ */
+Date.prototype.findAge = function() {
+	var today = new Date();
+	var age = today.getFullYear() - this.getFullYear();
+	var m = today.getMonth() - this.getMonth();
+	if (m < 0 || (m === 0 && today.getDate() < this.getDate())) {
+		age--;
+	}
+
+	return age;
+};
+
 /**
  * @todo Retorna um Date apenas com o dia, mês e ano preenchidos, o resto estará zerado
  *
