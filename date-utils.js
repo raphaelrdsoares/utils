@@ -123,15 +123,26 @@ Date.isValidDatetime = function(datetimeString) {
 //#region
 
 /**
- * Retorna um novo objeto Date a partir de uma string informada.
+ * Retorna um novo objeto Date a partir de uma string informada e de um formato definido.
+ * Caso não seja definido um "format", o padrão usado será o "DD/MM/YYYY"
  *
- * @param {String} date no formato DD/MM/YYYY (o separador '/' pode ser trocado por qualquer outro, Ex: "DD.MM#YYYY")
+ * @param {String} date
+ * @param {String} format formato da data DD/MM/YYYY (o separador '/' é irrelevante e pode ser trocado por qualquer outro, Ex: "DD.MM#YYYY")
  * @returns {Date}
  */
-Date.fromString = function(date) {
-	var parts = date.match(/(\d+)/g);
-	return new Date(parts[2], parts[1] - 1, parts[0]);
+Date.fromString = function(date, format) {
+	format = format || "DD/MM/YYYY"; // default format
+	var parts = date.match(/(\d+)/g),
+		i = 0,
+		fmt = {};
+	// extract date-part indexes from the format
+	format.replace(/(YYYY|DD|MM)/g, function(part) {
+		fmt[part] = i++;
+	});
+
+	return new Date(parts[fmt["YYYY"]], parts[fmt["MM"]] - 1, parts[fmt["DD"]]);
 };
+
 
 
 /**
