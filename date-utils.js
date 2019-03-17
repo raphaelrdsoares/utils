@@ -128,7 +128,7 @@ Date.isValidDatetime = function(datetimeString) {
  * @param {String} date no formato DD/MM/YYYY (o separador '/' pode ser trocado por qualquer outro, Ex: "DD.MM#YYYY")
  * @returns {Date}
  */
-Date.prototype.fromString = function(date) {
+Date.fromString = function(date) {
 	var parts = date.match(/(\d+)/g);
 	return new Date(parts[2], parts[1] - 1, parts[0]);
 };
