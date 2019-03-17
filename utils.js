@@ -213,6 +213,32 @@ function newId() {
 }
 
 /**
+ * Retorna o caminho completo de um atributo de um determinado objeto.
+ * Ex:
+ *
+ * @example
+ * var myObj = {'a': {'b': {'c': {'x': 1, 'y': 2 }}}};
+ * findPropPath(myObj, 'x')
+ * return: "a.b.c.x"
+ * @param {Object} obj objeto pai
+ * @param {string} name nome da atributo
+ * @returns {string} caminho completo do atributo
+ */
+function findPropPath(obj, name) {
+	for (var prop in obj) {
+		if (prop == name) {
+			return name;
+		} else if (typeof obj[prop] == "object") {
+			var result = findPropPath(obj[prop], name);
+			if (result) {
+				return prop + "." + result;
+			}
+		}
+	}
+	return null; // Not strictly needed, but good style
+}
+
+/**
  * Retorna um inteiro gerado aleatoriamente entre o min (incluso) e max (incluso)
  * 
  * @param {int} min 
