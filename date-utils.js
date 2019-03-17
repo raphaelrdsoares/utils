@@ -298,7 +298,6 @@ Date.prototype.addMiliseconds = function(value) {};
 
 
 /**
- * @description
  * Retorna da idade da data em anos
  *
  * @returns {int} idade em anos
