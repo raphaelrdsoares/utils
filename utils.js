@@ -33,6 +33,30 @@
 Array.prototype.clone = function() {
   return JSON.parse(JSON.stringify(this));
 };
+/**
+ * Remove o elemento do array pelo index;
+ *
+ * @param {int} index index do elemento que será removido
+ * @returns {boolean} true caso o elemento tenha sido removido. false caso contrário
+ */
+Array.prototype.removeByIndex = function(index) {
+	if (index > -1 && index < this.length) {
+		this.splice(index, 1);
+		return true;
+	}
+	return false;
+};
+
+/**
+ * Retorna true caso o array esteja vazio.
+ * Retorna false caso o array esteja com pelo menos 1 elemento
+ *
+ * @returns {boolean}
+ */
+Array.prototype.isEmpty = function() {
+	if (this.length > 0) return false;
+	return true;
+};
 
 /*================= Object Prototype =================*/
 Object.prototype.clone = function() {
