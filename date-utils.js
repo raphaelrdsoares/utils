@@ -16,17 +16,17 @@
 
 /**
  * Retorna uma String com o número informado e a quantidade desejada de zeros a esquerda.
- * Caso o size seja menor ou igual ao number, retorna o próprio number inalterado.
+ * Caso o size seja menor ou igual ao Number, retorna o próprio Number inalterado.
  *
  * Ex: fillWithZero(27, 5) => "00027"; fillWithZero(1, 3) => "001";
  * fillWithZero(7244, 3) => "7244"; fillWithZero(36, 2) => "36"
  *
- * @param {Number} number número qualquer, Ex: 8
+ * @param {Number} Number número qualquer, Ex: 8
  * @param {Number} size tamanho final da String, Ex: 3
  * @returns {String}  resultado final, Ex: "008"
  */
-function fillWithZero(number, size) {
-	var s = number + "";
+function fillWithZero(Number, size) {
+	var s = Number + "";
 	while (s.length < size) s = "0" + s;
 	return s;
 }
@@ -34,14 +34,11 @@ function fillWithZero(number, size) {
 if (!String.prototype.format) {
 	String.prototype.format = function() {
 		var args = arguments;
-		return this.replace(/{(\d+)}/g, function(match, number) {
-			return typeof args[number] != "undefined" ? args[number] : match;
+		return this.replace(/{(\d+)}/g, function(match, Number) {
+			return typeof args[Number] != "undefined" ? args[Number] : match;
 		});
 	};
 }
-
-var $D = Date,
-	$P = $D.prototype;
 
 //#endregion
 
@@ -56,7 +53,7 @@ var $D = Date,
  * @param {String} dateString no formato "DD/MM/YYYY" ou "DD/MM/YY"
  * @returns {boolean}
  */
-$D.isValidDateString = function(dateString) {
+Date.isValidDateString = function(dateString) {
 	// Checa o padrão
 	if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString) && !/^\d{1,2}\/\d{1,2}\/\d{2}$/.test(dateString)) return false;
 
@@ -88,7 +85,7 @@ $D.isValidDateString = function(dateString) {
  * @param {String} timeString no formato "hh:mm" ou "hh:mm:ss"
  * @returns {boolean}
  */
-$D.isValidTimeString = function(timeString) {
+Date.isValidTimeString = function(timeString) {
 	// Checa o padrão do formato
 	if (!/^\d{1,2}:\d{1,2}:\d{1,2}$/.test(timeString) && !/^\d{1,2}:\d{1,2}$/.test(timeString)) return false;
 
@@ -116,17 +113,17 @@ $D.isValidTimeString = function(timeString) {
  * @param {String} datetimeString no formato "DD/MM/YYYY hh:mm:ss". O ano pode ser com 4 ou 2 dígitos. A hora pode ou não ter segundos
  * @returns {boolean}
  */
-$D.isValidDatetime = function(datetimeString) {
+Date.isValidDatetime = function(datetimeString) {
 	// Separa a data da hora
 	var parts = datetimeString.split(" ");
 	var date = parts[0];
 	var time = parts[1];
 
 	// Valida a data
-	const isDateValid = $D.isValidDateString(date);
+	const isDateValid = Date.isValidDateString(date);
 
 	// Valida a hora
-	const isTimeValid = $D.isValidTimeString(time);
+	const isTimeValid = Date.isValidTimeString(time);
 
 	return isDateValid && isTimeValid;
 };
@@ -136,7 +133,7 @@ $D.isValidDatetime = function(datetimeString) {
  *
  * @param {Date} dateToCompare data a ser comparada
  */
-$P.isAfter = function(dataToCompare) {
+Date.prototype.isAfter = function(dataToCompare) {
 	return this.getTime() > dataToCompare.getTime();
 };
 
@@ -145,7 +142,7 @@ $P.isAfter = function(dataToCompare) {
  *
  * @param {Date} dateToCompare data a ser comparada
  */
-$P.isBefore = function(dataToCompare) {
+Date.prototype.isBefore = function(dataToCompare) {
 	return this.getTime() < dataToCompare.getTime();
 };
 
@@ -155,7 +152,7 @@ $P.isBefore = function(dataToCompare) {
  *
  * @param {Date} dateToCompare data a ser comparada
  */
-$P.isEqualDate = function(dataToCompare) {
+Date.prototype.equalsDate = function(dataToCompare) {
 	return this.clearTime().getTime() === dataToCompare.clearTime().getTime();
 };
 
@@ -164,7 +161,7 @@ $P.isEqualDate = function(dataToCompare) {
  *
  * @param {Date} dateToCompare data a ser comparada
  */
-$P.isEqualDatetime = function(dataToCompare) {
+Date.prototype.equalsDatetime = function(dataToCompare) {
 	return this.getTime() === dataToCompare.getTime();
 };
 
@@ -175,7 +172,7 @@ $P.isEqualDatetime = function(dataToCompare) {
  * @param {Date}     End data fim [Required]
  * @return {Boolean}
  */
-$P.isBetweenDatetime = function(start, end) {
+Date.prototype.isBetweenDatetime = function(start, end) {
 	return this.getTime() >= start.getTime() && this.getTime() <= end.getTime();
 };
 
@@ -186,8 +183,11 @@ $P.isBetweenDatetime = function(start, end) {
  * @param {Date}     End data fim (apenas data) [Required]
  * @return {Boolean}
  */
-$P.isBetweenDate = function(start, end) {
-	return this.getTime() >= start.clearTime().getTime() && this.getTime() <= end.clearTime().getTime();
+Date.prototype.isBetweenDate = function(start, end) {
+	return (
+		this.clearTime().getTime() >= start.clearTime().getTime() &&
+		this.clearTime().getTime() <= end.clearTime().getTime()
+	);
 };
 
 /**
@@ -196,8 +196,8 @@ $P.isBetweenDate = function(start, end) {
  * @param {Number} year Ano para ser validado
  * @return {Boolean}
  */
-$D.isValidYear = function(year) {
-	if (typeof year === "number" && year >= 1900 && year < 3000) return true;
+Date.isValidYear = function(year) {
+	if (typeof year === "Number" && year >= 1900 && year < 3000) return true;
 	return false;
 };
 
@@ -207,8 +207,8 @@ $D.isValidYear = function(year) {
  * @param {Number} month Mês para ser validado
  * @return {Boolean}
  */
-$D.isValidMonth = function(month) {
-	if (typeof month === "number" && month > 0 && month < 13) return true;
+Date.isValidMonth = function(month) {
+	if (typeof month === "Number" && month > 0 && month < 13) return true;
 	return false;
 };
 
@@ -221,11 +221,31 @@ $D.isValidMonth = function(month) {
  * @param {Number} day Entre 1 e [28,29,30,31] (depende do mês/ano)
  * @return {Boolean}
  */
-$D.isValidDay = function(year, month, day) {
+Date.isValidDay = function(year, month, day) {
 	if (!Date.isValidYear() || !Data.isValidMonth()) return false;
 	var daysInMonth = Date.daysInMonth(year, month);
-	if (typeof day === "number" && day > 1 && day <= daysInMonth) return true;
+	if (typeof day === "Number" && day > 1 && day <= daysInMonth) return true;
 	return false;
+};
+
+/**
+ * Verifica se o ano é bissexto.
+ *
+ * @param {Number} year Ano a ser verificado.
+ * @returns {Boolean} true caso o ano seja bissexto, falso caso contrário.
+ */
+Date.isLeapYear = function(year) {
+	return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+};
+
+/**
+ * Verifica se o ano é bissexto.
+ *
+ * @param {Number} year Ano a ser verificado.
+ * @returns {Boolean} true caso o ano seja bissexto, falso caso contrário.
+ */
+Date.prototype.isLeapYear = function() {
+	return this.isLeapYear(this.getFullYear());
 };
 
 //#endregion
@@ -237,23 +257,67 @@ $D.isValidDay = function(year, month, day) {
 
 /**
  * Retorna um novo objeto Date a partir de uma string informada e de um formato definido.
+ * Formato aceito: DD -> Dia; MM -> Mês; YYYY -> Ano.
  * Caso não seja definido um "format", o padrão usado será o "DD/MM/YYYY"
+ * Obs: Aceita apenas conversão para Date. Caso queira converter data/hora @see fromStringDatetime();
  *
- * @param {String} date
+ * @param {String} date data do tipo String [Required]
  * @param {String} format formato da data DD/MM/YYYY (o separador '/' é irrelevante e pode ser trocado por qualquer outro, Ex: "DD.MM#YYYY")
  * @returns {Date}
  */
-$D.fromString = function(date, format) {
-	format = format || "DD/MM/YYYY"; // default format
-	var parts = date.match(/(\d+)/g),
-		i = 0,
-		fmt = {};
-	// extract date-part indexes from the format
-	format.replace(/(YYYY|DD|MM)/g, function(part) {
-		fmt[part] = i++;
-	});
+Date.fromStringDate = function(date, format = "DD/MM/YYYY") {
+	return Date.fromStringDatetime(date, format);
+};
 
-	return new Date(parts[fmt["YYYY"]], parts[fmt["MM"]] - 1, parts[fmt["DD"]]);
+/**
+ * Retorna um novo objeto Date a partir de uma string informada e de um formato definido.
+ * Formato aceito: DD -> Dia; MM -> Mês; YYYY -> Ano; hh -> hora; mm -> minuto; ss -> segundo.
+ *
+ * Caso não seja definido um "format", o padrão usado será o "DD/MM/YYYY hh:mm:ss"
+ *
+ * Caso algum campo do horario não seja informado, será considerado valor 0.
+ * @example
+ * Date.fromStringDatetime("2019-05-10 10#15*30", "YYYY-MM-DD hh#mm*ss") => Fri May 10 2019 10:15:30 GMT-0300 (Horário Padrão de Brasília)
+ * Date.fromStringDatetime("2019-05-10 10#15", "YYYY-MM-DD hh#mm*ss") => Fri May 10 2019 10:15:00 GMT-0300 (Horário Padrão de Brasília)
+ * Date.fromStringDatetime("2019-05-10 10", "YYYY-MM-DD hh#mm*ss") => Fri May 10 2019 10:00:00 GMT-0300 (Horário Padrão de Brasília)
+ * Date.fromStringDatetime("2019-05-10", "YYYY-MM-DD hh#mm*ss") => Fri May 10 2019 00:00:00 GMT-0300 (Horário Padrão de Brasília)
+ *-
+ *
+ * Caso algum campo da data não seja informado, será considerado valor da data atual.
+ *
+ * @param {String} date data do tipo String [Required]
+ * @param {String} format formato da data. ex: DD/MM/YYYY hh:mm:ss (o separador '/' e ':' são irrelevantes e podem ser trocado por qualquer outro, Ex: "DD.MM#YYYY hh&mm*ss")
+ * @returns {Date}
+ */
+Date.fromStringDatetime = function(datetimeString, format = "DD/MM/YYYY hh:mm:ss") {
+	if (datetimeString == null) return;
+	var normalized = datetimeString.replace(/[^a-zA-Z0-9]/g, "-");
+	var normalizedFormat = format.replace(/[^a-zA-Z0-9]/g, "-");
+	var formatItems = normalizedFormat.split("-");
+	var dateItems = normalized.split("-");
+
+	var monthIndex = formatItems.indexOf("MM");
+	var dayIndex = formatItems.indexOf("DD");
+	var yearIndex = formatItems.indexOf("YYYY");
+	var hourIndex = formatItems.indexOf("hh");
+	var minutesIndex = formatItems.indexOf("mm");
+	var secondsIndex = formatItems.indexOf("ss");
+
+	var today = new Date();
+
+	var year = yearIndex > -1 && yearIndex < dateItems.length ? dateItems[yearIndex] : today.getFullYear();
+	var month = monthIndex > -1 && monthIndex < dateItems.length ? dateItems[monthIndex] - 1 : today.getMonth() - 1;
+	var day = dayIndex > -1 && dayIndex < dateItems.length ? dateItems[dayIndex] : today.getDate();
+
+	var hour = hourIndex > -1 && hourIndex < dateItems.length ? dateItems[hourIndex] : 0;
+	var minute = minutesIndex > -1 && minutesIndex < dateItems.length ? dateItems[minutesIndex] : 0;
+	var second = secondsIndex > -1 && secondsIndex < dateItems.length ? dateItems[secondsIndex] : 0;
+
+	return new Date(year, month, day, hour, minute, second);
+};
+
+Date.fromStringSQLDatetime = function(datetimeString) {
+	return Date.fromStringDatetime(datetimeString, "YYYY-MM-DD hh:mm:ss");
 };
 
 /**
@@ -264,10 +328,28 @@ $D.fromString = function(date, format) {
  * @param {boolean} monthFirst Caso true, retorna no padrão MM/DD/YYYY. Default: false
  * @returns {String}
  */
-$P.toStringDate = function(useFullYear = true, separator = "/", monthFirst = false) {
-	const day = fillWithZero(this.getDate());
-	const month = fillWithZero(this.getMonth() + 1);
+Date.prototype.toStringDate = function(useFullYear = true, separator = "/", monthFirst = false) {
+	const day = fillWithZero(this.getDate(), 2);
+	const month = fillWithZero(this.getMonth() + 1, 2);
 	const year = useFullYear ? this.getFullYear() : String(this.getFullYear()).substr(2, 4);
+
+	if (monthFirst) return "{1}{3}{0}{3}{2}".format(day, month, year, separator);
+	return "{0}{3}{1}{3}{2}".format(day, month, year, separator);
+};
+
+/**
+ * Retorna uma String no padrão DD/MM/YYYY
+ *
+ * @param {Date} dateObj Objeto tipo Date para ser convertido. [Default=data_atual]
+ * @param {boolean} useFullYear Caso true, o ano é retornado com 4 dígitos. Caso false, o ano vem com 2 dígitos. Default: true
+ * @param {String} separator Separador entre as datas. Default: '/'
+ * @param {boolean} monthFirst Caso true, retorna no padrão MM/DD/YYYY. Default: false
+ * @returns {String}
+ */
+Date.toStringDate = function(dateObj = new Date(), useFullYear = true, separator = "/", monthFirst = false) {
+	const day = fillWithZero(dateObj.getDate(), 2);
+	const month = fillWithZero(dateObj.getMonth() + 1, 2);
+	const year = useFullYear ? dateObj.getFullYear() : String(dateObj.getFullYear()).substr(2, 4);
 
 	if (monthFirst) return "{1}{3}{0}{3}{2}".format(day, month, year, separator);
 	return "{0}{3}{1}{3}{2}".format(day, month, year, separator);
@@ -280,10 +362,10 @@ $P.toStringDate = function(useFullYear = true, separator = "/", monthFirst = fal
  * @param {String} separator Separador entre os tempos. Default: ":"
  * @returns {String}
  */
-$P.toStringTime = function(withSeconds = true, separator = ":") {
-	const hour = fillWithZero(this.getHours());
-	const minutes = fillWithZero(this.getMinutes());
-	const seconds = fillWithZero(this.getSeconds());
+Date.prototype.toStringTime = function(withSeconds = true, separator = ":") {
+	const hour = fillWithZero(this.getHours(), 2);
+	const minutes = fillWithZero(this.getMinutes(), 2);
+	const seconds = fillWithZero(this.getSeconds(), 2);
 
 	if (withSeconds) return "{0}{3}{1}{3}{2}".format(hour, minutes, seconds, separator);
 	return "{0}{2}{1}".format(hour, minutes, separator);
@@ -299,7 +381,7 @@ $P.toStringTime = function(withSeconds = true, separator = ":") {
  * @param {boolean} monthFirst Caso true, retorna no padrão MM/DD/YYYY. Default: false
  * @returns {String}
  */
-$P.toStringDatetime = function(
+Date.prototype.toStringDatetime = function(
 	useFullYear = true,
 	withSeconds = true,
 	dateSeparator = "/",
@@ -312,12 +394,37 @@ $P.toStringDatetime = function(
 };
 
 /**
+ * Retorna uma String no padrão DD/MM/YYYY hh:mm:ss de uma data qualquer.
+ * Caso não seja informado nenhuma data, será considerada a data atual
+ *
+ * @param {Date} dateObj Objeto tipo Date para ser convertido. [Default=data_atual]
+ * @param {boolean} useFullYear Caso true, o ano é retornado com 4 dígitos. Caso false, o ano vem com 2 dígitos. [Default=true]
+ * @param {boolean} withSeconds Caso false, retorna a hora sem os segundos. [Default=true]
+ * @param {String} dateSeparator Separador entre as datas. [Default="/"]
+ * @param {String} timeSeparator Separador entre os tempos. [Default=":"]
+ * @param {boolean} monthFirst Caso true, retorna no padrão MM/DD/YYYY. [Default=false]
+ * @returns {String}
+ */
+Date.toStringDatetime = function(
+	dateObj = new Date(),
+	useFullYear = true,
+	withSeconds = true,
+	dateSeparator = "/",
+	timeSeparator = ":",
+	monthFirst = false
+) {
+	const date = dateObj.toStringDate(useFullYear, dateSeparator, monthFirst);
+	const time = dateObj.toStringTime(withSeconds, timeSeparator);
+	return "{0} {1}".format(date, time);
+};
+
+/**
  * Retona uma string com a data no formato SQL
  * Obs: mês de 1 a 12
  *
  * @returns {String} data no formato {YYYY-MM-DD hh:mm:ss}
  */
-$P.toSQLDatetime = function() {
+Date.prototype.toStringSQLDatetime = function() {
 	return "{0}-{1}-{2} {3}:{4}:{5}".format(
 		this.getFullYear(),
 		fillWithZero(this.getMonth() + 1, 2),
@@ -325,6 +432,24 @@ $P.toSQLDatetime = function() {
 		fillWithZero(this.getHours(), 2),
 		fillWithZero(this.getMinutes(), 2),
 		fillWithZero(this.getSeconds(), 2)
+	);
+};
+
+/**
+ * Retona uma string com a data no formato SQL
+ * Obs: mês de 1 a 12
+ *
+ * @param {Date} dateObj data a ser convertida
+ * @returns {String} data no formato {YYYY-MM-DD hh:mm:ss}
+ */
+Date.toStringSQLDatetime = function(dateObj = new Date()) {
+	return "{0}-{1}-{2} {3}:{4}:{5}".format(
+		dateObj.getFullYear(),
+		fillWithZero(dateObj.getMonth() + 1, 2),
+		fillWithZero(dateObj.getDate(), 2),
+		fillWithZero(dateObj.getHours(), 2),
+		fillWithZero(dateObj.getMinutes(), 2),
+		fillWithZero(dateObj.getSeconds(), 2)
 	);
 };
 
@@ -340,7 +465,7 @@ $P.toSQLDatetime = function() {
  *
  * @returns {Date} Novo objeto do tipo Date
  */
-$P.clone = function() {
+Date.prototype.clone = function() {
 	return new Date(this);
 };
 
@@ -350,7 +475,7 @@ $P.clone = function() {
  * @param {int} value - número de anos. Aceita valores positivo ou negativo.
  * @returns {Date} campos data/hora preenchidos.
  */
-$P.addYears = function(value) {
+Date.prototype.addYears = function(value) {
 	var newDate = new Date(this.getTime());
 	return new Date(newDate.setFullYear(newDate.getFullYear() + value));
 };
@@ -361,7 +486,11 @@ $P.addYears = function(value) {
  * @param {int} value - número de meses. Aceita valores positivo ou negativo.
  * @returns {Date} campos data/hora preenchidos.
  */
-$P.addMonths = function(value) {};
+Date.prototype.addMonths = function(value) {
+	var newDate = this.clone();
+	newDate.setMonth(newDate.getMonth() + value);
+	return newDate;
+};
 
 /**
  * Retorna um Date adicionando o valor informado ao número de semanas do objeto.
@@ -369,7 +498,7 @@ $P.addMonths = function(value) {};
  * @param {int} value - número de semanas. Aceita valores positivo ou negativo.
  * @returns {Date} campos data/hora preenchidos.
  */
-$P.addWeeks = function(value) {
+Date.prototype.addWeeks = function(value) {
 	var date = new Date(this.getTime());
 	return date.addDays(value * 7);
 };
@@ -380,7 +509,7 @@ $P.addWeeks = function(value) {
  * @param {int} value - número de dias. Aceita valores positivo ou negativo.
  * @returns {Date} campos data/hora preenchidos.
  */
-$P.addDays = function(value) {
+Date.prototype.addDays = function(value) {
 	var date = new Date(this.getTime());
 	return new Date(date.setDate(date.getDate() + value * 1));
 };
@@ -391,7 +520,7 @@ $P.addDays = function(value) {
  * @param {int} value - número de horas. Aceita valores positivo ou negativo.
  * @returns {Date} campos data/hora preenchidos.
  */
-$P.addHours = function(value) {
+Date.prototype.addHours = function(value) {
 	return new Date(this.getTime() + value * 60 * 60 * 1000);
 };
 
@@ -401,7 +530,7 @@ $P.addHours = function(value) {
  * @param {int} value - número de minutos. Aceita valores positivo ou negativo.
  * @returns {Date} campos data/hora preenchidos.
  */
-$P.addMinutes = function(value) {
+Date.prototype.addMinutes = function(value) {
 	return new Date(this.getTime() + value * 60 * 1000);
 };
 
@@ -411,7 +540,7 @@ $P.addMinutes = function(value) {
  * @param {int} value - número de segundos. Aceita valores positivo ou negativo.
  * @returns {Date} campos data/hora preenchidos.
  */
-$P.addSeconds = function(value) {
+Date.prototype.addSeconds = function(value) {
 	return new Date(this.getTime() + value * 1000);
 };
 
@@ -421,7 +550,7 @@ $P.addSeconds = function(value) {
  * @param {int} value - número de milisegundos. Aceita valores positivo ou negativo.
  * @returns {Date} campos data/hora preenchidos.
  */
-$P.addMiliseconds = function(value) {
+Date.prototype.addMiliseconds = function(value) {
 	return new Date(this.getTime() + value);
 };
 
@@ -433,15 +562,16 @@ $P.addMiliseconds = function(value) {
 //#region
 
 /**
- * Retorna da idade da data em anos
+ * Retorna da idade da instância em anos em uma determinada data
  *
- * @returns {int} idade em anos
+ * @param {Date} onDate data de referência para calcular a idade
+ * @returns {int} idade em anos || null caso [onDate] seja anterior a instância
  */
-$P.findAge = function() {
-	var today = new Date();
-	var age = today.getFullYear() - this.getFullYear();
-	var m = today.getMonth() - this.getMonth();
-	if (m < 0 || (m === 0 && today.getDate() < this.getDate())) {
+Date.prototype.findAge = function(onDate = new Date()) {
+	if (onDate.isBefore(this)) return null;
+	var age = onDate.getFullYear() - this.getFullYear();
+	var m = onDate.getMonth() - this.getMonth();
+	if (m < 0 || (m === 0 && onDate.getDate() < this.getDate())) {
 		age--;
 	}
 
@@ -454,7 +584,7 @@ $P.findAge = function() {
  *
  * @returns {Number} de 1 a 53
  */
-$P.getWeekNumber = function() {
+Date.prototype.getWeekNumber = function() {
 	var onejan = new Date(this.getFullYear(), 0, 1);
 	return Math.ceil(((this - onejan) / 86400000 + onejan.getDay() + 1) / 7);
 };
@@ -470,7 +600,7 @@ $P.getWeekNumber = function() {
  * @param {Number} day Dia do mês;
  * @returns {Number} de 1 a 53
  */
-$D.getWeekNumber = function(year, month, day) {
+Date.getWeekNumber = function(year, month, day) {
 	if (month < 1 || month > 12) return null;
 
 	var maxDaysInMonth = Date.daysInMonth(year, month);
@@ -485,7 +615,7 @@ $D.getWeekNumber = function(year, month, day) {
  * @param {Date} [dateToConvert=new Date()] data que será convertida. Caso não seja informado, será considerada a data atual
  * @returns {Date} apenas campos data preenchidos
  */
-$D.toDate = function(dateToConvert) {
+Date.toDate = function(dateToConvert) {
 	if (!dateToConvert) dateToConvert = new Date();
 
 	if (dateToConvert instanceof Date)
@@ -495,20 +625,20 @@ $D.toDate = function(dateToConvert) {
 };
 
 /**
- * Retorna um Date apenas com o dia, mês e ano preenchidos do objeto, o resto estará zerado
+ * Retorna a instância atual apenas com o dia, mês e ano preenchidos do objeto, o resto estará zerado
  *
  * @returns {Date}  apenas campos data preenchidos
  */
-$P.toDate = function() {
+Date.prototype.toDate = function() {
 	return new Date(this.getFullYear(), this.getMonth(), this.getDate());
 };
 
 /**
- * Retorna um Date apenas com o dia, mês e ano preenchidos do objeto, o resto estará zerado
+ * Retorna a instância atual apenas com o dia, mês e ano preenchidos do objeto, o resto estará zerado
  *
  * @returns {Date}  apenas campos data preenchidos
  */
-$P.clearTime = function() {
+Date.prototype.clearTime = function() {
 	return this.toDate();
 };
 
@@ -517,91 +647,135 @@ $P.clearTime = function() {
  *
  * @returns {Date} apenas campos data preenchidos
  */
-$D.today = function() {
-	var today = new Date();
-	return new Date(today.getFullYear(), today.getMonth(), today.getDate());
+Date.today = function() {
+	return new Date().clearTime();
 };
 
 /**
- * Retorna um Date apenas com o dia, mês e ano preenchidos com a data corrente, o resto estará zerado
+ * Retorna a instância atual apenas com o dia, mês e ano preenchidos com a data corrente, o resto estará zerado
  *
  * @returns {Date}  apenas campos data preenchidos
  */
-$P.today = function() {};
+Date.prototype.today = function() {
+	return Date.today();
+};
 
 /**
- * @todo Retorna um Date com exatas 24 horas a mais que a data corrente
+ * Retorna um Date com exatas 24 horas a mais que a data corrente
  *
  * @returns {Date} data/hora preenchidos
  */
-$D.tomorrow = function() {};
+Date.tomorrow = function() {
+	return new Date().addDays(1);
+};
 
 /**
- * @todo Retorna um Date com exatas 24 horas a mais que data do objeto
+ * Retorna a instância atual com exatas 24 horas a mais que data do objeto
  *
  * @returns {Date} data/hora preenchidos
  */
-$P.tomorrow = function() {};
+Date.prototype.tomorrow = function() {
+	return this.addDays(1);
+};
 
 /**
- * @todo Retorna apenas o dia, mês, ano do dia posterior ao dia corrente
+ * Retorna apenas o dia, mês, ano do dia posterior ao dia corrente
  *
  * @returns {Date} apenas campos data preenchidos
  */
-$D.tomorrowDate = function() {};
+Date.tomorrowDate = function() {
+	return new Date().addDays(1).clearTime();
+};
 
 /**
- * @todo Retorna apenas o dia, mês, ano do dia posterior a data do objeto
+ * Retorna apenas o dia, mês, ano do dia posterior a data do objeto
  *
  * @returns {Date} apenas campos data preenchidos
  */
-$P.tomorrowDate = function() {};
+Date.prototype.tomorrowDate = function() {
+	return this.addDays(1).clearTime();
+};
 
 /**
- * @todo Retorna um Date com exatas 24 horas a mais que a data corrente
+ * Retorna um Date com exatas 24 horas a mais que a data corrente
  *
  * @returns {Date} data/hora preenchidos
  */
-$D.yesterday = function() {};
+Date.yesterday = function() {
+	return new Date().addDays(-1);
+};
 
 /**
- * @todo Retorna um Date com exatas 24 horas a mais que data do objeto
+ * Retorna um Date com exatas 24 horas a mais que data da instância atual
  *
  * @returns {Date} data/hora preenchidos
  */
-$P.yesterday = function() {};
+Date.prototype.yesterday = function() {
+	return this.addDays(-1);
+};
 
 /**
- * @todo Retorna apenas o dia, mês, ano do dia posterior ao dia corrente
+ * Retorna apenas o dia, mês, ano do dia anterior ao dia corrente
  *
  * @returns {Date} apenas campos data preenchidos
  */
-$D.yesterdayDate = function() {};
+Date.yesterdayDate = function() {
+	return new Date().addDays(-1).clearTime();
+};
 
 /**
- * @todo Retorna apenas o dia, mês, ano do dia posterior a data do objeto
+ * Retorna apenas o dia, mês, ano do dia anterior a data da instância atual
  *
  * @returns {Date} apenas campos data preenchidos
  */
-$P.yesterdayDate = function() {};
+Date.prototype.yesterdayDate = function() {
+	return this.addDays(-1).clearTime();
+};
+
+/**
+ * Retorna o ano da data atual
+ *
+ * @returns {Number} Ano com 4 dígitos
+ */
+Date.year = function() {
+	return new Date().getFullYear();
+};
+
+/**
+ * Retorna o mês da data atual
+ *
+ * @returns {Number} Mês (de 1 a 12)
+ */
+Date.month = function() {
+	return new Date().getMonth() + 1;
+};
+
+/**
+ * Retorna o dia do mês da data atual
+ *
+ * @returns {Number} Dia (de 1 a 31)
+ */
+Date.day = function() {
+	return new Date().getDate();
+};
 
 /**
  * Retorna o primeiro dia do mês da data do objeto
  *
  * @returns {Date} data preenchida e horario zerada (ex: 01/MM/YYYY 00:00:00)
  */
-$P.firstDayOfMonth = function() {
+Date.prototype.firstDayOfMonth = function() {
 	return new Date(this.getFullYear(), this.getMonth(), 1);
 };
 
 /**
  * Retorna o primeiro dia de um determinado mes/ano
  *
- * @param {number} year ex: 2018
- * @param {number} month entre 1 e 12
+ * @param {Number} year ex: 2018
+ * @param {Number} month entre 1 e 12
  * @returns {Date} data preenchida e horario zerada (ex: 01/MM/YYYY 00:00:00)
  */
-$D.firstDayOfMonth = function(year, month) {
+Date.firstDayOfMonth = function(year, month) {
 	return new Date(year, month - 1, 1);
 };
 
@@ -610,39 +784,106 @@ $D.firstDayOfMonth = function(year, month) {
  *
  * @returns {Date} data preenchida e horario zerado (ex: 31/MM/YYYY 00:00:00)
  */
-$P.lastDayOfMonth = function() {
+Date.prototype.lastDayOfMonth = function() {
 	return new Date(this.getFullYear(), this.getMonth() + 1, 0);
 };
 
 /**
  * Retorna o último dia do mês da data do objeto
  *
- * @param {number} year ex: 2018
- * @param {number} month entre 1 e 12
+ * @param {Number} year ex: 2018
+ * @param {Number} month entre 1 e 12
  * @returns {Date} data preenchida e horario zerado (ex: 31/MM/YYYY 00:00:00)
  */
-$D.lastDayOfMonth = function(year, month) {
+Date.lastDayOfMonth = function(year, month) {
 	return new Date(year, month, 0);
+};
+
+/**
+ * Retorna o último segundo de dia
+ *
+ * @returns {Date} Data com horário => 23:59:59
+ */
+Date.prototype.lastSecondOfDay = function() {
+	return new Date(this.getFullYear(), this.getMonth(), this.getDate(), 23, 59, 59);
+};
+
+/**
+ * Retorna o último segundo de dia
+ *
+ * @param {Number} year ex: 2018
+ * @param {Number} month entre 1 e 12
+ * @param {Number} date entre 1 e 31
+ * @returns {Date} Data com horário => 23:59:59
+ */
+Date.lastSecondOfDay = function(year, month, date) {
+	return new Date(year, month - 1, date).lastSecondOfDay();
 };
 
 /**
  * Retorna a quantidade de dias de um determinado mês/ano
  *
- * @param {number} year ex: 2018
- * @param {number} month entre 1 e 12
- * @returns {number} quantidade de dias no mês
+ * @param {Number} year ex: 2018  [Default=currentYear]
+ * @param {Number} month entre 1 e 12 [Default=currentMonth]
+ * @returns {Number} quantidade de dias no mês
  */
-$D.daysInMonth = function(year, month) {
+Date.daysInMonth = function(year = null, month = null) {
+	if (isNullOrEmptyOrUndefined(year)) year = new Date().getFullYear();
+	if (isNullOrEmptyOrUndefined(month)) month = new Date().getMonth() + 1;
 	return new Date(year, month, 0).getDate();
 };
 
 /**
  * Retorna a quantidade de dias do mês/ano da data do objeto
  *
- * @returns {number} quantidade de dias no mês
+ * @returns {Number} quantidade de dias no mês
  */
-$P.daysInMonth = function() {
+Date.prototype.daysInMonth = function() {
 	return new Date(this.getFullYear(), this.getMonth() + 1, 0).getDate();
+};
+
+/**
+ * Retorna a quantidade de horas de um determinado mês/ano
+ *
+ * @param {Number} year ex: 2018 [Default=currentYear]
+ * @param {Number} month entre 1 e 12 [Default=currentMonth]
+ * @returns {Number} quantidade de horas no mês
+ */
+Date.hoursInMonth = function(year = null, month = null) {
+	if (isNullOrEmptyOrUndefined(year)) year = new Date().getFullYear();
+	if (isNullOrEmptyOrUndefined(month)) month = new Date().getMonth() + 1;
+	return new Date(year, month, 0).getDate() * 24;
+};
+
+/**
+ * Retorna a quantidade de horas do mês/ano da data do objeto
+ *
+ * @returns {Number} quantidade de horas no mês
+ */
+Date.prototype.hoursInMonth = function() {
+	return new Date(this.getFullYear(), this.getMonth() + 1, 0).getDate() * 24;
+};
+
+/**
+ * Retorna a quantidade de minutos de um determinado mês/ano
+ *
+ * @param {Number} year ex: 2018 [Default=currentYear]
+ * @param {Number} month entre 1 e 12 [Default=currentMonth]
+ * @returns {Number} quantidade de minutos no mês
+ */
+Date.minutesInMonth = function(year = null, month = null) {
+	if (isNullOrEmptyOrUndefined(year)) year = new Date().getFullYear();
+	if (isNullOrEmptyOrUndefined(month)) month = new Date().getMonth() + 1;
+	return new Date(year, month, 0).getDate() * 24 * 60;
+};
+
+/**
+ * Retorna a quantidade de minutos do mês/ano da data do objeto
+ *
+ * @returns {Number} quantidade de minutos no mês
+ */
+Date.prototype.minutesInMonth = function() {
+	return new Date(this.getFullYear(), this.getMonth() + 1, 0).getDate() * 24 * 60;
 };
 
 /**
@@ -655,7 +896,7 @@ $P.daysInMonth = function() {
  *
  * @returns {Number} de 1 a 366.
  */
-$P.getDayNumberInYear = function() {
+Date.prototype.getDayNumberInYear = function() {
 	return (
 		(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()) - Date.UTC(this.getFullYear(), 0, 0)) /
 		24 /
@@ -675,7 +916,7 @@ $P.getDayNumberInYear = function() {
  *
  * @returns {Number} de 1 a 366.
  */
-$D.getDayNumberInYear = function(year, month, day) {
+Date.getDayNumberInYear = function(year, month, day) {
 	return (Date.UTC(year, month - 1, day) - Date.UTC(year, 0, 0)) / 24 / 60 / 60 / 1000;
 };
 //#endregion
