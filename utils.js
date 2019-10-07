@@ -11,18 +11,46 @@
  *     Código - em EN
  *     Comentários - em PT-BR;
  *
- *     Colocar comentário em TODOS os métodos seguindo
- *     o padrão abaixo
- *     /**
- *      * [Breve descrição do que o método faz]
- *      *
- *      * @param {[Tipo do objeto ou * p/ qualquer tipo]} nome_do_parâmetro - breve descrição [required]
- *      * @param {[Tipo do objeto ou * p/ qualquer tipo]} nome_do_parâmetro - breve descrição
- *      * @returns {[Tipo do objeto ou * p/ qualquer tipo]} - breve descrição
- *      * /
+ *     Nome de método com retorno booleano deve iniciar com 'is...';
+ *     Ex: "isValidEmail(..)"
  *
- *      Nome de método com retorno booleano deve iniciar com 'is...';
- *      Ex: "isValidEmail(..)"
+ * @example
+ * 
+ * Summary. (use period)
+ *
+ * Description. (use period)
+ *
+ * @since      x.x.x
+ * @deprecated x.x.x Use new_function_name() instead.
+ * @access     private
+ *
+ * @class
+ * @augments parent
+ * @mixes    mixin
+ *
+ * @alias    realName
+ * @memberof namespace
+ *
+ * @see  https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/#functions
+ * @link URL
+ * @global
+ *
+ * @fires   eventName
+ * @fires   className#eventName
+ * @listens event:eventName
+ * @listens className~event:eventName
+ *
+ * @param {type}   var           Description.
+ * @param {type}   [var]         Description of optional variable.
+ * @param {type}   [var=default] Description of optional variable with default variable.
+ * @param {Object} objectVar     Description.
+ * @param {type}   objectVar.key Description of a key in the objectVar parameter.
+ *
+ * @yield {type} Yielded value description.
+ *
+ * @return {type} Return value description.
+ *
+
  */
 
 /* ---------------------------------------------------
