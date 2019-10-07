@@ -317,6 +317,58 @@ function convertToNumber(strValue, thousandSeparator = ".", decimalSeparator = "
 	if (decimals == undefined) decimals = "";
 	return parseFloat(value.replace(/\D/g, "") + "." + decimals.replace(/\D/g, ""));
 }
+
+/**
+ * Retorna uma String com o valor informado formatado.
+ *
+ * @example
+ * formatNumber(15.2) => "15,20"
+ * formatNumber(15.2, "R$ ") => "R$ 15,20"
+ * formatNumber(3215.2) => "3.215,20"
+ * formatNumber(3215.2, "R$ ") => "R$ 3.215,20"
+ * formatNumber(987654.321, "U$ ", "*", ":", 1) => "U$ 987*654:3"
+ *
+ * @param {Number} value valor que será formatado [Required];
+ * @param {String} prefix Símbolo da moeda, por exemplo.
+ * @param {String} thousandSeparator separador de milhar. Caso não seja informado, será considerado ".";
+ * @param {String} decimalSeparator separador de casas decimais. Caso não seja informado, será considerado ",";
+ * @param {Number} decimalPlaces quantidade de casas decimais a serem consideradas;
+ * @returns {String} valor formatado || null caso o {value} esteja null, undefined ou não seja do tipo "number"
+ */
+function formatNumber(value, prefix = null, thousandSeparator = ".", decimalSeparator = ",", decimalPlaces = 2) {
+	if (value === null || value === undefined || typeof value !== "number") return null;
+	decimalPlaces = !isNaN((decimalPlaces = Math.abs(decimalPlaces))) ? decimalPlaces : 2;
+	prefix = prefix !== undefined && prefix !== null ? prefix : "";
+	thousandSeparator = thousandSeparator || ",";
+	decimalSeparator = decimalSeparator || ".";
+	var number = value,
+		negative = number < 0 ? "-" : "",
+		i = parseInt((number = Math.abs(+number || 0).toFixed(decimalPlaces)), 10) + "",
+		j = (j = i.length) > 3 ? j % 3 : 0;
+	return (
+		prefix +
+		negative +
+		(j ? i.substr(0, j) + thousandSeparator : "") +
+		i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousandSeparator) +
+		(decimalPlaces
+			? decimalSeparator +
+			  Math.abs(number - parseInt(i))
+					.toFixed(decimalPlaces)
+					.slice(2)
+			: "")
+	);
+}
+
+/**
+ * Retorna um booleano de acordo com o valor informado
+ *
+ * @param {String|Number} value
+ * @returns {boolean} true ou false
+ */
+function getBooleanValue(value) {
+	if (value === "true" || value === "True" || value === "1" || value === 1 || value === true) return true;
+	return false;
+}
 //#endregion
 
 /* ---------------------------------------------------
@@ -422,47 +474,6 @@ function generateKey(keyLength = 10) {
 }
 
 /**
- * Retorna uma String com o valor informado formatado.
- *
- * @example
- * formatNumber(15.2) => "15,20"
- * formatNumber(15.2, "R$ ") => "R$ 15,20"
- * formatNumber(3215.2) => "3.215,20"
- * formatNumber(3215.2, "R$ ") => "R$ 3.215,20"
- * formatNumber(987654.321, "U$ ", "*", ":", 1) => "U$ 987*654:3"
- *
- * @param {Number} value valor que será formatado [Required];
- * @param {String} prefix Símbolo da moeda, por exemplo.
- * @param {String} thousandSeparator separador de milhar. Caso não seja informado, será considerado ".";
- * @param {String} decimalSeparator separador de casas decimais. Caso não seja informado, será considerado ",";
- * @param {Number} decimalPlaces quantidade de casas decimais a serem consideradas;
- * @returns {String} valor formatado || null caso o {value} esteja null, undefined ou não seja do tipo "number"
- */
-function formatNumber(value, prefix = null, thousandSeparator = ".", decimalSeparator = ",", decimalPlaces = 2) {
-	if (value === null || value === undefined || typeof value !== "number") return null;
-	decimalPlaces = !isNaN((decimalPlaces = Math.abs(decimalPlaces))) ? decimalPlaces : 2;
-	prefix = prefix !== undefined && prefix !== null ? prefix : "";
-	thousandSeparator = thousandSeparator || ",";
-	decimalSeparator = decimalSeparator || ".";
-	var number = value,
-		negative = number < 0 ? "-" : "",
-		i = parseInt((number = Math.abs(+number || 0).toFixed(decimalPlaces)), 10) + "",
-		j = (j = i.length) > 3 ? j % 3 : 0;
-	return (
-		prefix +
-		negative +
-		(j ? i.substr(0, j) + thousandSeparator : "") +
-		i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousandSeparator) +
-		(decimalPlaces
-			? decimalSeparator +
-			  Math.abs(number - parseInt(i))
-					.toFixed(decimalPlaces)
-					.slice(2)
-			: "")
-	);
-}
-
-/**
  * Formata a string informada para o formato 000.000.000-00
  *
  * @param {String} strCpfWithoutMask
@@ -490,17 +501,6 @@ function formatCNPJ(str) {
  */
 function removeFormat(strText) {
 	return strText.replace(/(\.|\/|-| |[(]|[)]|_)/g, "");
-}
-
-/**
- * Retorna um booleano de acordo com o valor informado
- *
- * @param {String|Number} value
- * @returns {boolean} true ou false
- */
-function getBooleanValue(value) {
-	if (value === "true" || value === "True" || value === "1" || value === 1 || value === true) return true;
-	return false;
 }
 
 /**
@@ -561,4 +561,70 @@ function clone(obj, hash = new WeakMap()) {
 		}))
 	);
 }
+
+/**
+ * Função de paginação para qualquer array ou lista de itens.
+ *
+ * @param {number} totalItems [Required] Total de itens a serem paginados
+ * @param {number} currentPage [Optional] Número da pagina ativa (começa em 1)
+ * @param {number} pageSize [Optional] Número máximo de itens por página (Default = 10)
+ * @param {number} maxPages [Optional] Número máximo de páginas a serem exibidas (Default = 10)
+ * @returns {Object} Contém todas as informações necessárias para exibição da paginação dos itens e seus respectivos links
+ */
+function paginate(totalItems, currentPage = 1, pageSize = 10, maxPages = 10) {
+	// calculate total pages
+	let totalPages = Math.ceil(totalItems / pageSize);
+
+	// ensure current page isn't out of range
+	if (currentPage < 1) {
+		currentPage = 1;
+	} else if (currentPage > totalPages) {
+		currentPage = totalPages;
+	}
+
+	let startPage, endPage;
+	if (totalPages <= maxPages) {
+		// total pages less than max so show all pages
+		startPage = 1;
+		endPage = totalPages;
+	} else {
+		// total pages more than max so calculate start and end pages
+		let maxPagesBeforeCurrentPage = Math.floor(maxPages / 2);
+		let maxPagesAfterCurrentPage = Math.ceil(maxPages / 2) - 1;
+		if (currentPage <= maxPagesBeforeCurrentPage) {
+			// current page near the start
+			startPage = 1;
+			endPage = maxPages;
+		} else if (currentPage + maxPagesAfterCurrentPage >= totalPages) {
+			// current page near the end
+			startPage = totalPages - maxPages + 1;
+			endPage = totalPages;
+		} else {
+			// current page somewhere in the middle
+			startPage = currentPage - maxPagesBeforeCurrentPage;
+			endPage = currentPage + maxPagesAfterCurrentPage;
+		}
+	}
+
+	// calculate start and end item indexes
+	let startIndex = (currentPage - 1) * pageSize;
+	let endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
+
+	// create an array of pages to ng-repeat in the pager control
+	let pages = Array.from(Array(endPage + 1 - startPage).keys()).map(i => startPage + i);
+
+	// return object with all pager properties required by the view
+	return {
+		totalItems: totalItems,
+		currentPage: currentPage,
+		pageSize: pageSize,
+		totalPages: totalPages,
+		startPage: startPage,
+		endPage: endPage,
+		startIndex: startIndex,
+		endIndex: endIndex,
+		pages: pages
+	};
+}
+
 //#endregion
