@@ -229,23 +229,23 @@ DateTime.prototype = {
 	format: function(format) {
 		var shortdays = new Array(
 			"",
-			DateTime.strings.Mon,
-			DateTime.strings.Tue,
-			DateTime.strings.Wed,
-			DateTime.strings.Thu,
-			DateTime.strings.Fri,
-			DateTime.strings.Sat,
-			DateTime.strings.Sun
+			DateTime.strings.Seg,
+			DateTime.strings.Ter,
+			DateTime.strings.Qua,
+			DateTime.strings.Qui,
+			DateTime.strings.Sex,
+			DateTime.strings.Sab,
+			DateTime.strings.Dom
 		);
 		var days = new Array(
 			"",
-			DateTime.strings.Monday,
-			DateTime.strings.Tuesday,
-			DateTime.strings.Wednesday,
-			DateTime.strings.Thursday,
-			DateTime.strings.Friday,
-			DateTime.strings.Saturday,
-			DateTime.strings.Sunday
+			DateTime.strings.Segunda,
+			DateTime.strings.Terca,
+			DateTime.strings.Quarta,
+			DateTime.strings.Quinta,
+			DateTime.strings.Sexta,
+			DateTime.strings.Sabado,
+			DateTime.strings.Domingo
 		);
 		var shortmonths = new Array(
 			"",
@@ -344,7 +344,7 @@ DateTime.prototype = {
 	},
 
 	day: function() {
-		return this.fromSpan("day");
+		return parseInt(this.fromSpan("day"));
 	},
 
 	dayOfWeek: function() {
@@ -432,20 +432,20 @@ DateTime.isLeapYear = function(year) {
 
 ///*
 DateTime.strings = function() {};
-DateTime.strings.Mon = "Mon";
-DateTime.strings.Monday = "Monday";
-DateTime.strings.Tue = "Tue";
-DateTime.strings.Tuesday = "Tuesday";
-DateTime.strings.Wed = "Wed";
-DateTime.strings.Wednesday = "Wednesday";
-DateTime.strings.Thu = "Thu";
-DateTime.strings.Thursday = "Thursday";
-DateTime.strings.Fri = "Fri";
-DateTime.strings.Friday = "Friday";
-DateTime.strings.Sat = "Sat";
-DateTime.strings.Saturday = "Saturday";
-DateTime.strings.Sun = "Sun";
-DateTime.strings.Sunday = "Sunday";
+DateTime.strings.Seg = "Seg";
+DateTime.strings.Segunda = "Segunda";
+DateTime.strings.Ter = "Ter";
+DateTime.strings.Terca = "Terça";
+DateTime.strings.Qua = "Qua";
+DateTime.strings.Quarta = "Quarta";
+DateTime.strings.Qui = "Qui";
+DateTime.strings.Quinta = "Quinta";
+DateTime.strings.Sex = "Sex";
+DateTime.strings.Sexta = "Sexta";
+DateTime.strings.Sab = "Sáb";
+DateTime.strings.Sabado = "Sábado";
+DateTime.strings.Dom = "Dom";
+DateTime.strings.Domingo = "Domingo";
 DateTime.strings.Jan = "Jan";
 DateTime.strings.Januray = "January";
 DateTime.strings.Feb = "Feb";
