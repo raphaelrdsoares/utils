@@ -1,27 +1,54 @@
 {
-  "name": "utils",
-  "version": "1.0.0",
-  "description": "Um projeto com várias funções utilitárias para Javascript e CSS",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/raphaelrdsoares/utils.git"
-  },
-  "keywords": [
-    "utils",
-    "javascript",
-    "css",
-    "date",
-    "datetime",
-    "library"
-  ],
-  "author": "Raphael R. D. Soares",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/raphaelrdsoares/utils/issues"
-  },
-  "homepage": "https://github.com/raphaelrdsoares/utils#readme"
+	"name": "utils",
+	"version": "1.0.0",
+	"description": "Um projeto com várias funções utilitárias para Javascript e CSS",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/raphaelrdsoares/utils.git"
+	},
+	"keywords": [
+		"utils",
+		"javascript",
+		"css",
+		"date",
+		"datetime",
+		"library"
+	],
+	"author": "Raphael R. D. Soares",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/raphaelrdsoares/utils/issues"
+	},
+	"homepage": "https://github.com/raphaelrdsoares/utils#readme",
+	"dependencies": {
+		"@fortawesome/fontawesome-free": "^5.5.0",
+		"bootstrap": "^4.1.3",
+		"dexie": "^2.0.4",
+		"jquery": "^3.3.1",
+		"linqjs": "^1.0.1",
+		"popper.js": "^1.14.4",
+		"reset-css": "^4.0.1",
+		"tailwindcss": "^1.1.2",
+		"sweetalert2": "^8.7.0",
+		"waypoints": "^4.0.1",
+		"xml-js": "^1.6.11",
+		"jquery-mask-plugin": "^1.14.15"
+	},
+	"devDependencies": {
+		"browser-sync": "^2.24.6",
+		"del": "^3.0.0",
+		"gulp": "^3.9.1",
+		"gulp-cssnano": "^2.1.3",
+		"gulp-if": "^2.0.2",
+		"gulp-imagemin": "^4.1.0",
+		"gulp-minify": "^3.1.0",
+		"gulp-uglify": "^3.0.1",
+		"gulp-useref": "^3.1.5",
+		"gulp-zip": "^4.2.0",
+		"run-sequence": "^2.2.1"
+	}
 }
