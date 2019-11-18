@@ -933,4 +933,23 @@ Date.random = function(from = new Date(0), to = new Date()) {
 	var max = Math.floor(to.getTime());
 	return new Date(Math.floor(Math.random() * (max - min + 1)) + min);
 };
+
+/**
+ * Retorna a quantidade de dias absolutos entre duas datas.
+ *
+ * @param {Date} firstDate Obrigatório.
+ * @param {Date} secondDate objeto data. [Default=new Date()]
+ */
+Date.daysBetween = function(firstDate, secondDate = new Date()) {
+	// The number of milliseconds in one day
+	var ONEDAY = 1000 * 60 * 60 * 24;
+	// Convert both dates to milliseconds
+	var date1_ms = firstDate.getTime();
+	var date2_ms = secondDate.getTime();
+	// Calculate the difference in milliseconds
+	var difference_ms = Math.abs(date1_ms - date2_ms);
+
+	// Convert back to days and return
+	return Math.round(difference_ms / ONEDAY);
+};
 //#endregion
