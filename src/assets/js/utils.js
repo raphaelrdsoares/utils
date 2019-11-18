@@ -655,4 +655,17 @@ function paginate(totalItems, currentPage = 1, pageSize = 10, maxPages = 10) {
 	};
 }
 
+
+/**
+ * Retorna um array de números entre os start e end (intervalo fechado).
+ *
+ * @param {int} start
+ * @param {int} end
+ * @returns {Array}
+ */
+function range(start, end) {
+	if (start === end) return [start];
+	return [start, ...range(start + 1, end)];
+}
+
 //#endregion
