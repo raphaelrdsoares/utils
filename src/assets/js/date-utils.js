@@ -919,4 +919,18 @@ Date.prototype.getDayNumberInYear = function() {
 Date.getDayNumberInYear = function(year, month, day) {
 	return (Date.UTC(year, month - 1, day) - Date.UTC(year, 0, 0)) / 24 / 60 / 60 / 1000;
 };
+
+
+/**
+ * Retorna uma data aleatória entre duas datas.
+ *
+ * @param {Date} from data de início [Default=new Date(0)]
+ * @param {Date} to data de fim [Default=new Date()]
+ * @returns {Date}
+ */
+Date.random = function(from = new Date(0), to = new Date()) {
+	var min = Math.ceil(from.getTime());
+	var max = Math.floor(to.getTime());
+	return new Date(Math.floor(Math.random() * (max - min + 1)) + min);
+};
 //#endregion
