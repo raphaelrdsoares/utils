@@ -642,6 +642,17 @@ Date.prototype.clearTime = function() {
 	return this.toDate();
 };
 
+
+/**
+ * Retona a data com os segundos e milisegundos zerados.
+ *
+ * @returns {Date}
+ */
+Date.prototype.clearSecondsAndSoOn = function() {
+	return new Date(this.getFullYear(), this.getMonth(), this.getDate(), this.getHours(), this.getMinutes());
+};
+
+
 /**
  * Retorna um Date apenas com o dia, mês e ano preenchidos com a data corrente, o resto estará zerado
  *
