@@ -449,7 +449,6 @@ function newId() {
 		.substr(2, 9);
 }
 
-
 /**
  * Gera um GUID (Globally Unique IDentifier)
  *
@@ -496,6 +495,16 @@ function findPropPath(obj, name) {
  */
 function randomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/**
+ * Retorna true ou false aleatoriamente.
+ *
+ * @param {Number} percentageTrue percentual de respostas verdadeiras [Default=0.5]
+ * @returns {boolean}
+ */
+function randomBool(percentageTrue = 0.5) {
+	return Math.random() < percentageTrue; // 50% this will be true, 50% false
 }
 
 /**
@@ -666,7 +675,6 @@ function paginate(totalItems, currentPage = 1, pageSize = 10, maxPages = 10) {
 		pages: pages
 	};
 }
-
 
 /**
  * Retorna um array de números entre os start e end (intervalo fechado).
