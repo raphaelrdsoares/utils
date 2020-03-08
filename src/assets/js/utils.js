@@ -318,16 +318,20 @@ function removeAccents(string) {
 }
 
 function capitalizeName(name) {
-	if (isNullOrEmptyOrUndefined(name)) return "";
-	return name
-		.trim()
-		.split(" ")
-		.map((word, index) => {
-			if (word.toLowerCase() === "e" || (word.length <= 3 && word[0].toLowerCase() === "d"))
-				return word.toLowerCase();
-			return word[0].toUpperCase().concat(word.substr(1).toLowerCase());
-		})
-		.join(" ");
+	if (name) {
+		return name
+			.trim()
+			.replace(/\s+/g, " ")
+			.split(" ")
+			.map((word, index) => {
+				if (word) {
+					if (word.toLowerCase() === "e" || (word.length <= 3 && word[0].toLowerCase() === "d"))
+						return word.toLowerCase();
+					return word[0].toUpperCase().concat(word.substr(1).toLowerCase());
+				}
+			})
+			.join(" ");
+	}
 }
 
 /**
