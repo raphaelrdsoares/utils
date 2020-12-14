@@ -512,6 +512,26 @@ function randomBool(percentageTrue = 0.5) {
 }
 
 /**
+ * Sortear elementos de um array
+ * 
+ * @param array
+ * @returns array: um novo array organizado de forma randômica
+ */
+function shuffle(array) {
+    var cloneArray = JSON.parse(JSON.stringify(array));
+
+    for (let i = cloneArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * i);
+        const temp = cloneArray[i];
+        cloneArray[i] = cloneArray[j];
+        cloneArray[j] = temp;
+    }
+
+    return cloneArray;
+}
+
+
+/**
  * Gera uma chave aleatória alfanumérica (letras em maiúsculo e minúsculo) com o tamanho informado
  *
  * @param {Number} keyLength tamanho da chave. Default: 10
