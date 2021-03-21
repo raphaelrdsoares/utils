@@ -427,6 +427,30 @@ function fillWithZero(number, size) {
 	return s;
 }
 
+
+function formatName (name) {
+            if (name) {
+                return name
+                    .trim()
+                    .replace(/\s+/g, " ")
+                    .split(" ")
+                    .map((word, index) => {
+                        if (word) {
+                            if (
+                                word.toLowerCase() === "e" ||
+                                word.toLowerCase() === "de" ||
+                                word.toLowerCase() === "da" ||
+                                word.toLowerCase() === "das" ||
+                                word.toLowerCase() === "do" ||
+                                word.toLowerCase() === "dos"
+                            )
+                                return word.toLowerCase();
+                            return word[0].toUpperCase().concat(word.substr(1).toLowerCase());
+                        }
+                    })
+                    .join(" ");
+            }
+        }
 /**
  * Executa um forEach() de forma assíncrona com await.
  *
